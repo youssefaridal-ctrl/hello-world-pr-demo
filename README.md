@@ -10,4 +10,12 @@ Run the script:
 node hello.js
 ```
 
-It prints a greeting to the console. This project is intentionaly kept simple.
+It prints a greeting to the console. This project is intentionally kept simple.
+
+## Tests
+
+Run the tests:
+
+```
+node hello.test.js
+```
