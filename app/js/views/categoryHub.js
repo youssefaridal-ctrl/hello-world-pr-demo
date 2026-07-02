@@ -1,5 +1,5 @@
 import { getCategoryById } from "../data/vocabulary.js";
-import { getState } from "../progress.js";
+import { getState, recordLastPosition } from "../progress.js";
 
 export function renderCategoryHub(container, categoryId) {
   const cat = getCategoryById(categoryId);
@@ -7,6 +7,7 @@ export function renderCategoryHub(container, categoryId) {
     container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Thème introuvable</p></div>`;
     return;
   }
+  recordLastPosition({ hash: `#/category/${cat.id}`, label: cat.title, icon: cat.icon });
   const state = getState();
   const mastered = cat.words.filter((w) => {
     const entry = state.wordMastery[`${categoryId}:${w.fr}`];

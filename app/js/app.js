@@ -78,5 +78,49 @@ window.addEventListener("hashchange", render);
 window.addEventListener("DOMContentLoaded", render);
 render();
 
-// إعادة رسم شارة النقاط عند أي تغيير للتقدم (يُستدعى من الواجهات بعد addXp)
+// Redessine la pastille de score après tout changement de progression (appelé depuis les vues après addXp)
 window.__refreshTopbar = updateTopbar;
+
+// PWA : enregistre le service worker et prévient l'utilisateur quand une nouvelle version
+// (nouvelles leçons, nouveaux exercices, changements de structure) est prête à être installée.
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").then((registration) => {
+      registration.addEventListener("updatefound", () => {
+        const newWorker = registration.installing;
+        if (!newWorker) return;
+        newWorker.addEventListener("statechange", () => {
+          if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+            showUpdateBanner(registration);
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+
+  // Ne recharger que si NOUS avons déclenché la mise à jour (clic sur la bannière) —
+  // sinon la simple prise de contrôle par le premier service worker installé
+  // (self.clients.claim() au tout premier chargement) provoquerait un rechargement inutile.
+  let updateRequested = false;
+  let reloadingAfterUpdate = false;
+  window.__requestSwUpdate = () => { updateRequested = true; };
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (!updateRequested || reloadingAfterUpdate) return;
+    reloadingAfterUpdate = true;
+    window.location.reload();
+  });
+}
+
+function showUpdateBanner(registration) {
+  const banner = document.getElementById("update-banner");
+  const btn = document.getElementById("update-banner-btn");
+  if (!banner || !btn) return;
+  banner.hidden = false;
+  btn.addEventListener("click", () => {
+    if (registration.waiting) {
+      window.__requestSwUpdate && window.__requestSwUpdate();
+      registration.waiting.postMessage("SKIP_WAITING");
+    }
+    banner.hidden = true;
+  });
+}

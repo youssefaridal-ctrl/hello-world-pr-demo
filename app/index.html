@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>Bonjour — Parlez français avec aisance</title>
-<meta name="description" content="Application immersive pour parler français avec fluidité : expressions de communication avancées, grammaire, conversations simulées et entraînement à la prononciation avec reconnaissance vocale." />
+<title>Aridal Lab — Parlez français avec aisance</title>
+<meta name="description" content="Aridal Lab : application immersive pour parler français avec fluidité : expressions de communication avancées, grammaire, conversations simulées et entraînement à la prononciation avec reconnaissance vocale." />
 <meta name="theme-color" content="#6C5CE7" />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇫🇷</text></svg>" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="icon" href="./assets/icon-192.png" />
+<link rel="apple-touch-icon" href="./assets/icon-192.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,10 +24,15 @@
   <header class="topbar">
     <a href="#/home" class="brand">
       <span class="brand__flag">🇫🇷</span>
-      <span class="brand__text">Bonjour<span class="brand__accent">.fluide</span></span>
+      <span class="brand__text">Aridal<span class="brand__accent"> Lab</span></span>
     </a>
     <div class="topbar__stats" id="topbar-stats"></div>
   </header>
+
+  <div id="update-banner" class="update-banner" hidden>
+    <span>🚀 Une nouvelle version d'Aridal Lab est prête.</span>
+    <button id="update-banner-btn">Mettre à jour</button>
+  </div>
 
   <main id="app" class="app-main" role="main"></main>
 

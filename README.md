@@ -12,12 +12,13 @@ node hello.js
 
 It prints a greeting to the console. This project is intentionaly kept simple.
 
-## Bonjour — French Learning App
+## Aridal Lab — French Fluency App
 
-The `app/` directory contains **Bonjour**, an interactive, gamified web app that
-teaches French to Arabic-speaking learners through communication-focused
-practice: vocabulary, grammar, listening, speaking (with real-time speech
-recognition scoring), and simulated conversations with a virtual teacher.
+The `app/` directory contains **Aridal Lab**, an installable, gamified web app
+that helps learners who already read/write French get fluent at *speaking*
+it — through advanced communicative expressions, simulated conversations, and
+speech-recognition-scored pronunciation drills, entirely in French (full
+immersion, no translation crutch).
 
 ### Run it locally
 
@@ -34,22 +35,33 @@ full speech-recognition support).
 
 ### Features
 
-- **Vocabulary lessons** across 11 themed categories (greetings, numbers,
-  colors, family, food, time, body, travel, shopping, verbs, weather) with
-  flip flashcards, Arabic transliteration, and native-sounding French audio.
-- **Grammar lessons** covering articles, `être`/`avoir`, `-er` verbs, negation,
-  questions, and adjective agreement, with conjugation tables and spoken
-  examples.
-- **Quizzes & listening drills** with instant feedback and spaced-repetition
-  style word mastery tracking.
-- **Speaking practice** using the Web Speech API: the app listens to your
-  pronunciation and scores it against the target phrase.
-- **Conversation simulator**: turn-based dialogues with a virtual teacher
-  where you speak your lines and get scored, covering real-life scenarios
-  (meeting someone, ordering coffee, asking for directions, shopping, daily
-  routine).
+- **Fluency-focused expression themes** (not basic vocabulary): logical
+  connectors, filler expressions, giving opinions, spontaneous reactions,
+  reformulating, idioms, social/professional small talk, handling
+  disagreement, storytelling, and politeness registers — flashcards give a
+  French definition, an example, and a register tag (soutenu/neutre/familier).
+- **Six exercise types per theme**: flashcards, quiz (expression ↔
+  definition), active listening, speaking practice, **shadowing**
+  (listen-then-repeat-immediately fluency drills), and **rapid response**
+  (timed spontaneous production from a French-only cue, with no written
+  expression shown, to break the mental-translation habit).
+- **Advanced grammar** (subjonctif, discours rapporté, concordance des temps,
+  pronoms relatifs composés, gérondif, voix passive) with spoken conjugation
+  tables and examples.
+- **Conversation simulator**: turn-based dialogues with a virtual teacher for
+  advanced real-life scenarios (job interview, work meeting, storytelling,
+  social small talk, handling a last-minute change).
+- **Resume where you left off**: the app remembers your exact last position
+  (theme, exercise, conversation, or grammar lesson) and surfaces a
+  "Reprendre" button on the home screen plus a learning-path history on the
+  profile page, so every session continues from the previous one.
 - **Gamification**: XP, levels, daily streaks, and badges stored locally in
   the browser (no backend required).
+- **Installable PWA**: has a web app manifest and service worker, so it can
+  be added to a phone's home screen and works offline. The service worker
+  is versioned (`CACHE_VERSION` in `app/sw.js`) — bump it when shipping new
+  lessons or structural changes, and installed users get an in-app "Mettre à
+  jour" prompt instead of silently going stale.
 
 ### Browser support note
 

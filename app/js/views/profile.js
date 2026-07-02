@@ -1,6 +1,6 @@
 import { vocabulary } from "../data/vocabulary.js";
-import { getState, getLevel, getXpIntoLevel, countMasteredWords, getAllBadgesWithStatus, resetProgress } from "../progress.js";
-import { showToast } from "../utils.js";
+import { getState, getLevel, getXpIntoLevel, countMasteredWords, getAllBadgesWithStatus, getRecentActivity, resetProgress } from "../progress.js";
+import { showToast, timeAgo } from "../utils.js";
 
 const WEEKDAYS_FR = ["dim", "lun", "mar", "mer", "jeu", "ven", "sam"];
 
@@ -19,6 +19,7 @@ export function renderProfile(container) {
   const totalWords = vocabulary.reduce((sum, c) => sum + c.words.length, 0);
   const mastered = countMasteredWords();
   const badges = getAllBadgesWithStatus();
+  const recentActivity = getRecentActivity();
   const days = lastSevenDays();
   const activeDates = new Set(state.history.map((h) => h.date));
 
@@ -35,6 +36,22 @@ export function renderProfile(container) {
       <div class="mini-stat"><div class="mini-stat__value num-ratio">${mastered}/${totalWords}</div><div class="mini-stat__label">expressions maîtrisées</div></div>
       <div class="mini-stat"><div class="mini-stat__value">${Object.keys(state.conversationsDone).length}</div><div class="mini-stat__label">conversations faites</div></div>
     </div>
+
+    ${recentActivity.length ? `
+      <div class="section-heading"><h2>Mon parcours d'apprentissage</h2></div>
+      <div class="card" style="padding:8px 0;">
+        ${recentActivity.map((a, i) => `
+          <a href="${a.hash}" class="activity-row" style="${i < recentActivity.length - 1 ? "border-bottom:1px solid var(--border-soft);" : ""}">
+            <span class="activity-row__icon">${a.icon}</span>
+            <span style="flex:1;">
+              <div class="activity-row__label">${a.label}</div>
+              <div class="activity-row__time">${timeAgo(a.timestamp)}</div>
+            </span>
+            <span style="color:var(--text-muted);">→</span>
+          </a>
+        `).join("")}
+      </div>
+    ` : ""}
 
     <div class="section-heading"><h2>Activité de la semaine</h2></div>
     <div class="week-strip">

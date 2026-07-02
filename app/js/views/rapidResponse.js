@@ -1,6 +1,6 @@
 import { getCategoryById } from "../data/vocabulary.js";
 import { speakFrench, sttSupported, listenOnce, similarityScore } from "../speech.js";
-import { addXp, recordWordResult } from "../progress.js";
+import { addXp, recordWordResult, recordLastPosition } from "../progress.js";
 import { shuffle, showToast, fireConfetti } from "../utils.js";
 
 // Réponse rapide : seule la définition/situation est affichée (jamais l'expression),
@@ -14,6 +14,7 @@ export function renderRapidResponse(container, categoryId) {
     container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Thème introuvable</p></div>`;
     return;
   }
+  recordLastPosition({ hash: `#/category/${cat.id}/rapid`, label: `Réponse rapide · ${cat.title}`, icon: cat.icon });
 
   const words = shuffle(cat.words).slice(0, Math.min(ROUND_SIZE, cat.words.length));
   let index = 0;

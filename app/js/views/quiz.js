@@ -1,5 +1,5 @@
 import { getCategoryById, getAllWords } from "../data/vocabulary.js";
-import { addXp, recordWordResult } from "../progress.js";
+import { addXp, recordWordResult, recordLastPosition } from "../progress.js";
 import { shuffle, sample, showToast, fireConfetti } from "../utils.js";
 
 const QUESTIONS_PER_ROUND = 8;
@@ -10,6 +10,7 @@ export function renderQuiz(container, categoryId) {
     container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Thème introuvable</p></div>`;
     return;
   }
+  recordLastPosition({ hash: `#/category/${cat.id}/quiz`, label: `Quiz de sens · ${cat.title}`, icon: cat.icon });
 
   const pool = shuffle(cat.words).slice(0, Math.min(QUESTIONS_PER_ROUND, cat.words.length));
   const allOtherWords = getAllWords().filter((w) => w.categoryId !== cat.id || !pool.includes(w));

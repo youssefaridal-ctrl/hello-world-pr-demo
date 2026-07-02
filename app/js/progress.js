@@ -15,6 +15,8 @@ function defaultState() {
     conversationsDone: {},
     badges: [],
     history: [], // [{date, xp}]
+    lastPosition: null, // { hash, label, icon, timestamp }
+    recentActivity: [], // [{ hash, label, icon, timestamp }] — most recent first, capped
   };
 }
 
@@ -150,6 +152,23 @@ export function getEarnedBadges() {
 
 export function getAllBadgesWithStatus() {
   return BADGES.map((b) => ({ ...b, earned: state.badges.includes(b.id) }));
+}
+
+// Mémorise la position exacte de l'apprenant (thème, exercice, conversation ou leçon de grammaire)
+// pour que la session suivante puisse reprendre exactement là où elle s'est arrêtée.
+export function recordLastPosition({ hash, label, icon }) {
+  const entry = { hash, label, icon, timestamp: Date.now() };
+  state.lastPosition = entry;
+  state.recentActivity = [entry, ...state.recentActivity.filter((a) => a.hash !== hash)].slice(0, 8);
+  save();
+}
+
+export function getLastPosition() {
+  return state.lastPosition;
+}
+
+export function getRecentActivity() {
+  return state.recentActivity;
 }
 
 export function resetProgress() {

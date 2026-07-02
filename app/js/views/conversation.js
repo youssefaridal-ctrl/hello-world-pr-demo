@@ -1,6 +1,6 @@
 import { conversations } from "../data/conversations.js";
 import { speakFrench, sttSupported, listenOnce, similarityScore } from "../speech.js";
-import { addXp, markConversationDone } from "../progress.js";
+import { addXp, markConversationDone, recordLastPosition } from "../progress.js";
 import { showToast, fireConfetti } from "../utils.js";
 
 const PASS_THRESHOLD = 45;
@@ -11,6 +11,7 @@ export function renderConversation(container, convId) {
     container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Conversation introuvable</p></div>`;
     return;
   }
+  recordLastPosition({ hash: `#/conversation/${conv.id}`, label: `Dialogue : ${conv.title}`, icon: conv.icon });
 
   let cursor = 0;
   let listening = false;

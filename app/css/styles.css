@@ -82,6 +82,31 @@ button { font-family: inherit; cursor: pointer; }
 .brand__accent { color: var(--color-primary); }
 
 .topbar__stats { display: flex; gap: 10px; }
+
+.update-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--color-primary), #8b7bff);
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  position: sticky;
+  top: 65px;
+  z-index: 19;
+}
+.update-banner button {
+  background: #fff;
+  color: var(--color-primary);
+  border: none;
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
 .stat-pill {
   display: flex;
   align-items: center;
@@ -467,6 +492,16 @@ button { font-family: inherit; cursor: pointer; }
   flex: 1; text-align: center; padding: 10px 0; border-radius: var(--radius-sm); background: var(--border-soft); font-size: 0.75rem; font-weight: 700; color: var(--text-muted);
 }
 .week-day.active { background: linear-gradient(135deg, var(--color-accent-green), #22c48e); color: #fff; }
+
+.activity-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+}
+.activity-row__icon { font-size: 1.3rem; }
+.activity-row__label { font-weight: 700; font-size: 0.88rem; }
+.activity-row__time { font-size: 0.72rem; color: var(--text-muted); }
 
 /* ============ التنبيهات (Toasts) ============ */
 .toast-container {

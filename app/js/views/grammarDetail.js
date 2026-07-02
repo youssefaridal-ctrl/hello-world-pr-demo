@@ -1,6 +1,6 @@
 import { grammarLessons } from "../data/grammar.js";
 import { speakFrench } from "../speech.js";
-import { addXp, markLessonComplete, isLessonComplete } from "../progress.js";
+import { addXp, markLessonComplete, isLessonComplete, recordLastPosition } from "../progress.js";
 import { showToast } from "../utils.js";
 
 export function renderGrammarDetail(container, lessonId) {
@@ -9,6 +9,7 @@ export function renderGrammarDetail(container, lessonId) {
     container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Leçon introuvable</p></div>`;
     return;
   }
+  recordLastPosition({ hash: `#/grammar/${lesson.id}`, label: `Grammaire : ${lesson.title}`, icon: lesson.icon });
 
   const progressKey = `grammar:${lesson.id}`;
   const alreadyDone = isLessonComplete(progressKey);

@@ -1,6 +1,6 @@
 import { getCategoryById } from "../data/vocabulary.js";
 import { speakFrench } from "../speech.js";
-import { addXp, recordWordResult } from "../progress.js";
+import { addXp, recordWordResult, recordLastPosition } from "../progress.js";
 import { showToast } from "../utils.js";
 
 export function renderFlashcards(container, categoryId) {
@@ -9,6 +9,7 @@ export function renderFlashcards(container, categoryId) {
     container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Thème introuvable</p></div>`;
     return;
   }
+  recordLastPosition({ hash: `#/category/${cat.id}/flashcards`, label: `Cartes mémo · ${cat.title}`, icon: cat.icon });
   let index = 0;
   let flipped = false;
   let xpAwarded = false;

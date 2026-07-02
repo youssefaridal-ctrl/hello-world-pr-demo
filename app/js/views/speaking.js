@@ -1,6 +1,6 @@
 import { getCategoryById } from "../data/vocabulary.js";
 import { speakFrench, sttSupported, listenOnce, similarityScore } from "../speech.js";
-import { addXp, recordWordResult } from "../progress.js";
+import { addXp, recordWordResult, recordLastPosition } from "../progress.js";
 import { shuffle, showToast, fireConfetti } from "../utils.js";
 
 const WORDS_PER_ROUND = 8;
@@ -11,6 +11,7 @@ export function renderSpeaking(container, categoryId) {
     container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Thème introuvable</p></div>`;
     return;
   }
+  recordLastPosition({ hash: `#/category/${cat.id}/speaking`, label: `Prise de parole · ${cat.title}`, icon: cat.icon });
 
   const words = shuffle(cat.words).slice(0, Math.min(WORDS_PER_ROUND, cat.words.length));
   let index = 0;

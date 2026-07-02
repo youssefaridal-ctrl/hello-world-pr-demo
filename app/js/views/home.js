@@ -1,6 +1,7 @@
 import { vocabulary } from "../data/vocabulary.js";
 import { conversations } from "../data/conversations.js";
-import { getState, getLevel, getXpIntoLevel, countMasteredWords, getEarnedBadges } from "../progress.js";
+import { getState, getLevel, getXpIntoLevel, countMasteredWords, getEarnedBadges, getLastPosition } from "../progress.js";
+import { timeAgo } from "../utils.js";
 
 function categoryProgressPercent(categoryId) {
   const state = getState();
@@ -25,6 +26,7 @@ export function renderHome(container) {
   const nextCategory = hasProgress
     ? vocabulary.find((c) => categoryProgressPercent(c.id) < 100) || vocabulary[0]
     : vocabulary[0];
+  const lastPosition = getLastPosition();
 
   const greeting = level >= 10 ? "Vous parlez avec une vraie aisance ! 🎉" : level >= 5 ? "Belle progression, continuez ainsi !" : "Prêt à parler français sans hésiter ?";
 
@@ -41,16 +43,29 @@ export function renderHome(container) {
       <div class="mini-stat"><div class="mini-stat__value">${totalWords}</div><div class="mini-stat__label">au total</div></div>
     </div>
 
-    <div class="card" id="continue-card" style="cursor:pointer;">
-      <div style="display:flex;align-items:center;gap:14px;">
-        <div class="hub-header__icon" style="background:${nextCategory.color}">${nextCategory.icon}</div>
-        <div style="flex:1;">
-          <div style="font-weight:700;">${hasProgress ? "Continuer" : "Commencer"} : ${nextCategory.title}</div>
-          <div class="progress-track" style="margin-top:8px;"><div class="progress-track__bar" style="width:${categoryProgressPercent(nextCategory.id)}%"></div></div>
+    ${lastPosition ? `
+      <div class="card" id="continue-card" style="cursor:pointer; border:2px solid var(--color-primary);">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="hub-header__icon" style="background:linear-gradient(135deg, var(--color-primary), #8b7bff);">${lastPosition.icon}</div>
+          <div style="flex:1;">
+            <div style="font-size:0.72rem; font-weight:700; color:var(--color-primary); text-transform:uppercase; letter-spacing:0.03em;">Reprendre · ${timeAgo(lastPosition.timestamp)}</div>
+            <div style="font-weight:700;">${lastPosition.label}</div>
+          </div>
+          <div style="font-size:1.4rem;">→</div>
         </div>
-        <div style="font-size:1.4rem;">→</div>
       </div>
-    </div>
+    ` : `
+      <div class="card" id="continue-card" style="cursor:pointer;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="hub-header__icon" style="background:${nextCategory.color}">${nextCategory.icon}</div>
+          <div style="flex:1;">
+            <div style="font-weight:700;">${hasProgress ? "Continuer" : "Commencer"} : ${nextCategory.title}</div>
+            <div class="progress-track" style="margin-top:8px;"><div class="progress-track__bar" style="width:${categoryProgressPercent(nextCategory.id)}%"></div></div>
+          </div>
+          <div style="font-size:1.4rem;">→</div>
+        </div>
+      </div>
+    `}
 
     <div class="section-heading">
       <h2>S'entraîner à l'oral</h2>
@@ -96,6 +111,6 @@ export function renderHome(container) {
   `;
 
   container.querySelector("#continue-card").addEventListener("click", () => {
-    window.location.hash = `#/category/${nextCategory.id}`;
+    window.location.hash = lastPosition ? lastPosition.hash : `#/category/${nextCategory.id}`;
   });
 }
