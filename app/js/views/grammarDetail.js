@@ -6,7 +6,7 @@ import { showToast } from "../utils.js";
 export function renderGrammarDetail(container, lessonId) {
   const lesson = grammarLessons.find((l) => l.id === lessonId);
   if (!lesson) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>الدرس غير موجود</p></div>`;
+    container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Leçon introuvable</p></div>`;
     return;
   }
 
@@ -14,7 +14,7 @@ export function renderGrammarDetail(container, lessonId) {
   const alreadyDone = isLessonComplete(progressKey);
 
   container.innerHTML = `
-    <a href="#/grammar" class="back-link">→ رجوع إلى القواعد</a>
+    <a href="#/grammar" class="back-link">← Retour à la grammaire</a>
     <div class="hub-header">
       <div class="hub-header__icon" style="background:var(--color-primary);">${lesson.icon}</div>
       <div class="page-title" style="margin:0;">${lesson.title}</div>
@@ -33,19 +33,19 @@ export function renderGrammarDetail(container, lessonId) {
       </table>
     `).join("")}
 
-    <div class="section-heading"><h2>أمثلة</h2></div>
+    <div class="section-heading"><h2>Exemples</h2></div>
     ${lesson.examples.map((ex) => `
       <div class="example-row conj-audio" data-fr="${ex.fr}">
         <div>
           <div class="example-row__fr">${ex.fr}</div>
-          <div class="example-row__ar">${ex.ar}</div>
+          ${ex.note ? `<div class="example-row__ar">${ex.note}</div>` : ""}
         </div>
         <span>🔊</span>
       </div>
     `).join("")}
 
     <button class="btn btn--primary btn--block" id="complete-btn" style="margin-top:20px;" ${alreadyDone ? "disabled" : ""}>
-      ${alreadyDone ? "تم إنهاء هذا الدرس ✅" : "أنهيت الدرس (+10 نقاط)"}
+      ${alreadyDone ? "Leçon terminée ✅" : "J'ai terminé cette leçon (+10 points)"}
     </button>
   `;
 
@@ -59,9 +59,9 @@ export function renderGrammarDetail(container, lessonId) {
       markLessonComplete(progressKey);
       const { newBadges } = addXp(10);
       window.__refreshTopbar && window.__refreshTopbar();
-      showToast("أحسنت! +10 نقاط خبرة", { type: "success" });
-      newBadges.forEach((b) => showToast(`وسام جديد: ${b.icon} ${b.label}`, { type: "info" }));
-      completeBtn.textContent = "تم إنهاء هذا الدرس ✅";
+      showToast("Bravo ! +10 points d'expérience", { type: "success" });
+      newBadges.forEach((b) => showToast(`Nouveau badge : ${b.icon} ${b.label}`, { type: "info" }));
+      completeBtn.textContent = "Leçon terminée ✅";
       completeBtn.disabled = true;
     });
   }

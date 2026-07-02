@@ -8,7 +8,7 @@ const WORDS_PER_ROUND = 8;
 export function renderSpeaking(container, categoryId) {
   const cat = getCategoryById(categoryId);
   if (!cat) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>الفئة غير موجودة</p></div>`;
+    container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Thème introuvable</p></div>`;
     return;
   }
 
@@ -24,27 +24,27 @@ export function renderSpeaking(container, categoryId) {
     }
     const word = words[index];
     container.innerHTML = `
-      <a href="#/category/${cat.id}" class="back-link">→ رجوع</a>
-      <div class="page-title">${cat.title} · تدرّب على النطق</div>
+      <a href="#/category/${cat.id}" class="back-link">← Retour</a>
+      <div class="page-title">${cat.title} · Prise de parole</div>
       <div class="quiz-progress progress-track"><div class="progress-track__bar" style="width:${(index / words.length) * 100}%"></div></div>
 
       <div class="speaking-target">
         <div class="speaking-target__fr">${word.fr}</div>
-        <div class="speaking-target__translit">${word.translit}</div>
-        <div class="speaking-target__ar">${word.ar}</div>
+        <div class="speaking-target__translit">[${word.phonetic}]</div>
+        <div class="speaking-target__ar">${word.definition}</div>
       </div>
 
       <div class="speaking-controls">
-        <button class="icon-btn" id="listen-btn" aria-label="استمع للنطق الصحيح" style="width:56px;height:56px;font-size:1.4rem;">🔊</button>
+        <button class="icon-btn" id="listen-btn" aria-label="Écouter la prononciation" style="width:56px;height:56px;font-size:1.4rem;">🔊</button>
         ${
           sttSupported
-            ? `<button class="btn--icon-round" id="mic-btn" aria-label="اضغط وتحدث">🎙️</button>
-               <div class="speaking-hint" id="mic-hint">اضغط على الميكروفون وانطق الكلمة بصوت واضح</div>`
-            : `<div class="empty-state"><div class="empty-state__icon">🎙️</div><p>متصفحك لا يدعم التعرف على الصوت. جرّب متصفح Chrome على الحاسوب أو أندرويد.</p></div>`
+            ? `<button class="btn--icon-round" id="mic-btn" aria-label="Appuyez et parlez">🎙️</button>
+               <div class="speaking-hint" id="mic-hint">Appuyez sur le micro et prononcez la phrase clairement</div>`
+            : `<div class="empty-state"><div class="empty-state__icon">🎙️</div><p>Votre navigateur ne supporte pas la reconnaissance vocale. Essayez Chrome sur ordinateur ou Android.</p></div>`
         }
       </div>
       <div id="result-area"></div>
-      ${sttSupported ? `<button class="btn btn--ghost btn--block" id="skip-btn">تخطي هذه الكلمة</button>` : `<button class="btn btn--primary btn--block" id="skip-btn">التالي</button>`}
+      ${sttSupported ? `<button class="btn btn--ghost btn--block" id="skip-btn">Passer cette expression</button>` : `<button class="btn btn--primary btn--block" id="skip-btn">Suivant</button>`}
     `;
 
     container.querySelector("#listen-btn").addEventListener("click", () => speakFrench(word.fr));
@@ -63,7 +63,7 @@ export function renderSpeaking(container, categoryId) {
     listening = true;
     micBtn.classList.add("listening");
     const hint = container.querySelector("#mic-hint");
-    if (hint) hint.textContent = "🎙️ أستمع الآن... تحدث الآن";
+    if (hint) hint.textContent = "🎙️ Je vous écoute... parlez maintenant";
 
     try {
       const { transcript } = await listenOnce({ timeoutMs: 7000 });
@@ -71,13 +71,13 @@ export function renderSpeaking(container, categoryId) {
       showResult(word, transcript, score);
     } catch (err) {
       const message = err.message === "TIMEOUT" || err.message === "NO_SPEECH"
-        ? "لم أسمع شيئاً، حاول مرة أخرى وتحدث بوضوح"
-        : "حدث خطأ في التعرف على الصوت، حاول مجدداً";
+        ? "Je n'ai rien entendu, réessayez en parlant clairement"
+        : "Erreur de reconnaissance vocale, réessayez"
       showToast(message, { type: "error" });
     } finally {
       listening = false;
       micBtn.classList.remove("listening");
-      if (hint) hint.textContent = "اضغط على الميكروفون وانطق الكلمة بصوت واضح";
+      if (hint) hint.textContent = "Appuyez sur le micro et prononcez la phrase clairement";
     }
   }
 
@@ -85,16 +85,16 @@ export function renderSpeaking(container, categoryId) {
     totalScore += score;
     recordWordResult(cat.id, word.fr, score >= 60);
     const level = score >= 85 ? "great" : score >= 55 ? "ok" : "retry";
-    const message = score >= 85 ? "نطق ممتاز! 🌟" : score >= 55 ? "جيد، استمر بالتحسن 👍" : "حاول مرة أخرى، استمع جيداً ثم كرر 🔁";
+    const message = score >= 85 ? "Excellente prononciation ! 🌟" : score >= 55 ? "Bien, continuez à progresser 👍" : "Réessayez, écoutez bien puis répétez 🔁";
     const area = container.querySelector("#result-area");
     area.innerHTML = `
       <div class="speaking-result speaking-result--${level}" style="--score:${score}">
         <div class="score-circle" style="--score:${score}"><span>${score}%</span></div>
         <div style="font-weight:700;">${message}</div>
-        <div class="transcript-box">سمعت: "${transcript}"</div>
+        <div class="transcript-box">J'ai entendu : "${transcript}"</div>
         <div style="display:flex; gap:10px; justify-content:center; margin-top:14px;">
-          <button class="btn btn--secondary" id="retry-word-btn">حاول مجدداً</button>
-          <button class="btn btn--primary" id="next-word-btn">التالي ←</button>
+          <button class="btn btn--secondary" id="retry-word-btn">Réessayer</button>
+          <button class="btn btn--primary" id="next-word-btn">Suivant →</button>
         </div>
       </div>
     `;
@@ -118,14 +118,14 @@ export function renderSpeaking(container, categoryId) {
       <div class="quiz-result card">
         <div style="font-size:2.4rem;">🎙️</div>
         <div class="quiz-result__score">${avgScore}%</div>
-        <p class="page-subtitle">متوسط دقة النطق في هذه الجلسة</p>
+        <p class="page-subtitle">Précision moyenne de prononciation pour cette session</p>
         <div style="display:flex; gap:10px; justify-content:center; margin-top:16px;">
-          <button class="btn btn--secondary" id="retry-btn">إعادة المحاولة</button>
-          <button class="btn btn--primary" id="done-btn">متابعة</button>
+          <button class="btn btn--secondary" id="retry-btn">Recommencer</button>
+          <button class="btn btn--primary" id="done-btn">Continuer</button>
         </div>
       </div>
     `;
-    newBadges.forEach((b) => showToast(`وسام جديد: ${b.icon} ${b.label}`, { type: "info" }));
+    newBadges.forEach((b) => showToast(`Nouveau badge : ${b.icon} ${b.label}`, { type: "info" }));
     container.querySelector("#retry-btn").addEventListener("click", () => renderSpeaking(container, categoryId));
     container.querySelector("#done-btn").addEventListener("click", () => {
       window.location.hash = `#/category/${cat.id}`;

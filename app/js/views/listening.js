@@ -8,7 +8,7 @@ const QUESTIONS_PER_ROUND = 8;
 export function renderListening(container, categoryId) {
   const cat = getCategoryById(categoryId);
   if (!cat) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>الفئة غير موجودة</p></div>`;
+    container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Thème introuvable</p></div>`;
     return;
   }
 
@@ -34,12 +34,12 @@ export function renderListening(container, categoryId) {
     }
     const q = questions[current];
     container.innerHTML = `
-      <a href="#/category/${cat.id}" class="back-link">→ رجوع</a>
-      <div class="page-title">${cat.title} · تدريب الاستماع</div>
+      <a href="#/category/${cat.id}" class="back-link">← Retour</a>
+      <div class="page-title">${cat.title} · Écoute active</div>
       <div class="quiz-progress progress-track"><div class="progress-track__bar" style="width:${(current / questions.length) * 100}%"></div></div>
       <div class="listening-panel">
         <button class="speaker-btn" id="play-btn">🔊</button>
-        <div class="speaking-hint">استمع جيداً ثم اختر الكلمة الصحيحة</div>
+        <div class="speaking-hint">Écoutez attentivement, puis choisissez la bonne expression</div>
       </div>
       <div class="quiz-options">
         ${q.options.map((opt) => `<button class="quiz-option fr-text" data-opt="${encodeURIComponent(opt)}">${opt}</button>`).join("")}
@@ -68,16 +68,16 @@ export function renderListening(container, categoryId) {
     const feedback = container.querySelector("#feedback");
     if (isCorrect) {
       correctCount += 1;
-      feedback.textContent = "أحسنت! سمعت جيداً ✅";
+      feedback.textContent = "Bien entendu ! ✅";
       feedback.className = "quiz-feedback correct";
     } else {
-      feedback.textContent = `الصحيح: ${q.word.fr} (${q.word.ar})`;
+      feedback.textContent = `C'était : "${q.word.fr}"`;
       feedback.className = "quiz-feedback wrong";
     }
     setTimeout(() => {
       current += 1;
       renderQuestion();
-    }, 1200);
+    }, 1300);
   }
 
   function renderResult() {
@@ -91,14 +91,14 @@ export function renderListening(container, categoryId) {
       <div class="quiz-result card">
         <div style="font-size:2.4rem;">👂</div>
         <div class="quiz-result__score num-ratio">${correctCount}/${questions.length}</div>
-        <p class="page-subtitle">حصلت على ${xpEarned} نقطة خبرة</p>
+        <p class="page-subtitle">${xpEarned} points d'expérience gagnés</p>
         <div style="display:flex; gap:10px; justify-content:center; margin-top:16px;">
-          <button class="btn btn--secondary" id="retry-btn">إعادة المحاولة</button>
-          <button class="btn btn--primary" id="done-btn">متابعة</button>
+          <button class="btn btn--secondary" id="retry-btn">Recommencer</button>
+          <button class="btn btn--primary" id="done-btn">Continuer</button>
         </div>
       </div>
     `;
-    newBadges.forEach((b) => showToast(`وسام جديد: ${b.icon} ${b.label}`, { type: "info" }));
+    newBadges.forEach((b) => showToast(`Nouveau badge : ${b.icon} ${b.label}`, { type: "info" }));
     container.querySelector("#retry-btn").addEventListener("click", () => renderListening(container, categoryId));
     container.querySelector("#done-btn").addEventListener("click", () => {
       window.location.hash = `#/category/${cat.id}`;

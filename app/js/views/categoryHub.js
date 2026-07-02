@@ -4,7 +4,7 @@ import { getState } from "../progress.js";
 export function renderCategoryHub(container, categoryId) {
   const cat = getCategoryById(categoryId);
   if (!cat) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>الفئة غير موجودة</p></div>`;
+    container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Thème introuvable</p></div>`;
     return;
   }
   const state = getState();
@@ -15,12 +15,12 @@ export function renderCategoryHub(container, categoryId) {
   const percent = Math.round((mastered / cat.words.length) * 100);
 
   container.innerHTML = `
-    <a href="#/lessons" class="back-link">→ رجوع إلى الفئات</a>
+    <a href="#/lessons" class="back-link">← Retour aux thèmes</a>
     <div class="hub-header">
       <div class="hub-header__icon" style="background:${cat.color}">${cat.icon}</div>
       <div>
         <div class="page-title" style="margin:0;">${cat.title}</div>
-        <div class="page-subtitle" style="margin:0;">${cat.words.length} كلمة · ${mastered} متقنة</div>
+        <div class="page-subtitle" style="margin:0;">${cat.words.length} expressions · ${mastered} maîtrisées</div>
       </div>
     </div>
     <div class="progress-track"><div class="progress-track__bar" style="width:${percent}%"></div></div>
@@ -28,23 +28,33 @@ export function renderCategoryHub(container, categoryId) {
     <div class="exercise-grid">
       <a href="#/category/${cat.id}/flashcards" class="exercise-tile">
         <div class="exercise-tile__icon">🗂️</div>
-        <div class="exercise-tile__title">بطاقات تعليمية</div>
-        <div class="exercise-tile__desc">تعلم الكلمات مع النطق</div>
+        <div class="exercise-tile__title">Cartes mémo</div>
+        <div class="exercise-tile__desc">Sens et usage en français</div>
+      </a>
+      <a href="#/category/${cat.id}/shadowing" class="exercise-tile">
+        <div class="exercise-tile__icon">🪞</div>
+        <div class="exercise-tile__title">Répétition immédiate</div>
+        <div class="exercise-tile__desc">Écoutez et répétez sans délai</div>
       </a>
       <a href="#/category/${cat.id}/listening" class="exercise-tile">
         <div class="exercise-tile__icon">👂</div>
-        <div class="exercise-tile__title">الاستماع</div>
-        <div class="exercise-tile__desc">استمع واختر الكلمة الصحيحة</div>
+        <div class="exercise-tile__title">Écoute active</div>
+        <div class="exercise-tile__desc">Reconnaître à l'oreille</div>
       </a>
       <a href="#/category/${cat.id}/quiz" class="exercise-tile">
         <div class="exercise-tile__icon">✏️</div>
-        <div class="exercise-tile__title">اختبار سريع</div>
-        <div class="exercise-tile__desc">اختبر معرفتك بالمعنى</div>
+        <div class="exercise-tile__title">Quiz de sens</div>
+        <div class="exercise-tile__desc">Associez expression et définition</div>
       </a>
       <a href="#/category/${cat.id}/speaking" class="exercise-tile">
         <div class="exercise-tile__icon">🎙️</div>
-        <div class="exercise-tile__title">تدرّب على النطق</div>
-        <div class="exercise-tile__desc">تحدث وقارن نطقك</div>
+        <div class="exercise-tile__title">Prise de parole</div>
+        <div class="exercise-tile__desc">Prononcez et comparez</div>
+      </a>
+      <a href="#/category/${cat.id}/rapid" class="exercise-tile">
+        <div class="exercise-tile__icon">⏱️</div>
+        <div class="exercise-tile__title">Réponse rapide</div>
+        <div class="exercise-tile__desc">Répondez sans hésiter</div>
       </a>
     </div>
   `;

@@ -1,109 +1,106 @@
-// دروس قواعدية مبسطة للمبتدئين مع أمثلة صوتية
+// Points de grammaire avancés (B2-C1) pour affiner la précision à l'oral et à l'écrit
 export const grammarLessons = [
   {
-    id: "articles",
-    title: "أدوات التعريف والتنكير",
+    id: "subjonctif",
+    title: "Le subjonctif présent",
     icon: "📘",
     explanation:
-      "في الفرنسية، لكل اسم جنس (مذكر أو مؤنث) وعدد (مفرد أو جمع). أدوات التعريف: le (مذكر) - la (مؤنث) - les (جمع). أدوات التنكير: un (مذكر) - une (مؤنث) - des (جمع).",
-    examples: [
-      { fr: "le garçon", ar: "الولد (مذكر)" },
-      { fr: "la fille", ar: "البنت (مؤنث)" },
-      { fr: "les enfants", ar: "الأطفال (جمع)" },
-      { fr: "un livre", ar: "كتاب (مذكر نكرة)" },
-      { fr: "une table", ar: "طاولة (مؤنث نكرة)" },
-    ],
-  },
-  {
-    id: "etre-avoir",
-    title: "تصريف être و avoir في المضارع",
-    icon: "📗",
-    explanation: "être (يكون) و avoir (يملك) فعلان أساسيان لا بد من حفظ تصريفهما جيداً لأنهما يُستعملان في كل جملة تقريباً.",
+      "Le subjonctif exprime le doute, le souhait, l'obligation ou l'émotion. Il s'utilise après certaines expressions : il faut que, je veux que, je doute que, bien que... Pour la plupart des verbes, on part de la 3ᵉ personne du pluriel au présent (ils parlent → qu'ils parlent) et on ajoute -e, -es, -e, -ions, -iez, -ent.",
     conjugationTables: [
       {
-        verb: "être",
+        verb: "parler (subjonctif)",
         rows: [
-          { pronoun: "Je", form: "suis" },
-          { pronoun: "Tu", form: "es" },
-          { pronoun: "Il / Elle", form: "est" },
-          { pronoun: "Nous", form: "sommes" },
-          { pronoun: "Vous", form: "êtes" },
-          { pronoun: "Ils / Elles", form: "sont" },
+          { pronoun: "que je", form: "parle" },
+          { pronoun: "que tu", form: "parles" },
+          { pronoun: "qu'il / elle", form: "parle" },
+          { pronoun: "que nous", form: "parlions" },
+          { pronoun: "que vous", form: "parliez" },
+          { pronoun: "qu'ils / elles", form: "parlent" },
         ],
       },
       {
-        verb: "avoir",
+        verb: "être (subjonctif, irrégulier)",
         rows: [
-          { pronoun: "J'", form: "ai" },
-          { pronoun: "Tu", form: "as" },
-          { pronoun: "Il / Elle", form: "a" },
-          { pronoun: "Nous", form: "avons" },
-          { pronoun: "Vous", form: "avez" },
-          { pronoun: "Ils / Elles", form: "ont" },
+          { pronoun: "que je", form: "sois" },
+          { pronoun: "que tu", form: "sois" },
+          { pronoun: "qu'il / elle", form: "soit" },
+          { pronoun: "que nous", form: "soyons" },
+          { pronoun: "que vous", form: "soyez" },
+          { pronoun: "qu'ils / elles", form: "soient" },
         ],
       },
     ],
     examples: [
-      { fr: "Je suis étudiant.", ar: "أنا طالب." },
-      { fr: "Nous avons deux enfants.", ar: "لدينا طفلان." },
+      { fr: "Il faut que tu viennes à la réunion.", note: "Obligation" },
+      { fr: "Je doute qu'il soit prêt à temps.", note: "Doute" },
+      { fr: "Bien qu'il pleuve, nous sortirons.", note: "Concession" },
+      { fr: "Je suis content que vous soyez là.", note: "Émotion" },
     ],
   },
   {
-    id: "er-verbs",
-    title: "تصريف الأفعال المنتهية بـ -ER",
-    icon: "📙",
-    explanation: "معظم الأفعال الفرنسية تنتهي بـ -er (مثل parler، aimer، habiter). لتصريفها في المضارع، نحذف -er ونضيف: e, es, e, ons, ez, ent.",
-    conjugationTables: [
-      {
-        verb: "parler",
-        rows: [
-          { pronoun: "Je", form: "parle" },
-          { pronoun: "Tu", form: "parles" },
-          { pronoun: "Il / Elle", form: "parle" },
-          { pronoun: "Nous", form: "parlons" },
-          { pronoun: "Vous", form: "parlez" },
-          { pronoun: "Ils / Elles", form: "parlent" },
-        ],
-      },
-    ],
-    examples: [
-      { fr: "Je parle français.", ar: "أتحدث الفرنسية." },
-      { fr: "Vous parlez très bien.", ar: "أنت تتحدث جيداً جداً." },
-    ],
-  },
-  {
-    id: "negation",
-    title: "النفي: ne...pas",
-    icon: "📕",
-    explanation: "لنفي جملة في الفرنسية، نضع ne قبل الفعل و pas بعده: Sujet + ne + verbe + pas.",
-    examples: [
-      { fr: "Je ne parle pas anglais.", ar: "لا أتحدث الإنجليزية." },
-      { fr: "Il n'est pas là.", ar: "هو ليس هنا." },
-      { fr: "Nous n'avons pas faim.", ar: "لسنا جائعين." },
-    ],
-  },
-  {
-    id: "questions",
-    title: "طرح الأسئلة",
-    icon: "❓",
+    id: "discours-rapporte",
+    title: "Le discours rapporté",
+    icon: "💭",
     explanation:
-      "يمكن طرح الأسئلة بثلاث طرق: برفع النبرة في نهاية الجملة (Tu vas bien ?)، أو باستعمال Est-ce que في البداية (Est-ce que tu vas bien ?)، أو بقلب الفعل والفاعل (Vas-tu bien ?).",
+      "Pour rapporter les paroles de quelqu'un, on utilise dire que / demander si / demander ce que. Au passé, les temps changent : présent → imparfait, passé composé → plus-que-parfait, futur → conditionnel présent. Les indicateurs de temps changent aussi (aujourd'hui → ce jour-là, demain → le lendemain).",
     examples: [
-      { fr: "Comment tu t'appelles ?", ar: "ما اسمك؟" },
-      { fr: "Où habites-tu ?", ar: "أين تسكن؟" },
-      { fr: "Quel âge as-tu ?", ar: "كم عمرك؟" },
-      { fr: "Qu'est-ce que tu fais ?", ar: "ماذا تفعل؟" },
+      { fr: "« Je suis fatigué » → Il a dit qu'il était fatigué.", note: "présent → imparfait" },
+      { fr: "« J'ai fini » → Elle a dit qu'elle avait fini.", note: "passé composé → plus-que-parfait" },
+      { fr: "« Je viendrai demain » → Il a dit qu'il viendrait le lendemain.", note: "futur → conditionnel" },
+      { fr: "« Es-tu libre ? » → Il m'a demandé si j'étais libre.", note: "question fermée → si" },
+      { fr: "« Que fais-tu ? » → Elle m'a demandé ce que je faisais.", note: "question ouverte → ce que" },
     ],
   },
   {
-    id: "adjectives",
-    title: "توافق الصفات",
-    icon: "📔",
-    explanation: "الصفة في الفرنسية توافق الاسم في الجنس والعدد. غالباً نضيف -e للمؤنث و -s للجمع.",
+    id: "concordance-temps",
+    title: "La concordance des temps",
+    icon: "⏳",
+    explanation:
+      "Le temps du verbe subordonné dépend du temps du verbe principal. Si le verbe principal est au passé, l'action simultanée se met à l'imparfait, l'action antérieure au plus-que-parfait, et l'action postérieure au conditionnel présent.",
     examples: [
-      { fr: "Il est grand. / Elle est grande.", ar: "هو طويل. / هي طويلة." },
-      { fr: "Il est petit. / Elle est petite.", ar: "هو صغير. / هي صغيرة." },
-      { fr: "Ils sont contents.", ar: "هم سعداء (جمع)." },
+      { fr: "Il dit qu'il travaille. → Il a dit qu'il travaillait.", note: "simultanéité" },
+      { fr: "Il dit qu'il a fini. → Il a dit qu'il avait fini.", note: "antériorité" },
+      { fr: "Il dit qu'il partira. → Il a dit qu'il partirait.", note: "postériorité" },
+    ],
+  },
+  {
+    id: "pronoms-relatifs",
+    title: "Les pronoms relatifs composés",
+    icon: "🧩",
+    explanation:
+      "Au-delà de qui/que/où/dont, les pronoms composés (lequel, à laquelle, sur lesquels, ce dont, ce à quoi...) permettent des phrases plus précises et plus élégantes, typiques d'un français soutenu.",
+    examples: [
+      { fr: "Le sujet dont je te parle est complexe.", note: "dont = parler de" },
+      { fr: "Voici le collègue avec lequel j'ai travaillé.", note: "lequel après préposition" },
+      { fr: "C'est la raison pour laquelle j'ai refusé.", note: "laquelle après préposition composée" },
+      { fr: "Ce à quoi je pense, c'est notre prochain projet.", note: "ce à quoi = penser à" },
+      { fr: "Ce dont j'ai besoin, c'est de temps.", note: "ce dont = avoir besoin de" },
+    ],
+  },
+  {
+    id: "gerondif",
+    title: "Le gérondif",
+    icon: "🌀",
+    explanation:
+      "Le gérondif (en + participe présent) exprime la simultanéité, la manière ou la condition. Il rend le discours plus fluide en évitant deux phrases séparées.",
+    examples: [
+      { fr: "Il parle en marchant.", note: "simultanéité" },
+      { fr: "Elle a appris le français en regardant des séries.", note: "manière" },
+      { fr: "En travaillant plus, tu réussiras.", note: "condition" },
+      { fr: "C'est en forgeant qu'on devient forgeron.", note: "expression figée" },
+    ],
+  },
+  {
+    id: "voix-passive",
+    title: "La voix passive",
+    icon: "🔃",
+    explanation:
+      "La voix passive met en valeur l'action ou son résultat plutôt que celui qui la fait. Construction : sujet + être (au temps voulu) + participe passé (+ par + agent, facultatif).",
+    examples: [
+      { fr: "Le contrat a été signé par les deux parties.", note: "passé composé passif" },
+      { fr: "Ce roman est lu dans le monde entier.", note: "présent passif" },
+      { fr: "La décision sera annoncée demain.", note: "futur passif" },
+      { fr: "Le projet a été reporté.", note: "agent non précisé" },
     ],
   },
 ];

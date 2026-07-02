@@ -47,12 +47,12 @@ export function getXpIntoLevel() {
 }
 
 const BADGES = [
-  { id: "first_step", label: "الخطوة الأولى", icon: "🌱", condition: (s) => s.xp >= 10 },
-  { id: "streak_3", label: "ثلاثة أيام متتالية", icon: "🔥", condition: (s) => s.streak >= 3 },
-  { id: "streak_7", label: "أسبوع كامل", icon: "🏆", condition: (s) => s.streak >= 7 },
-  { id: "level_5", label: "المستوى الخامس", icon: "⭐", condition: (s) => getLevel() >= 5 },
-  { id: "words_50", label: "50 كلمة متقنة", icon: "📚", condition: (s) => countMasteredWords() >= 50 },
-  { id: "conversationalist", label: "متحدث بارع", icon: "🗣️", condition: (s) => Object.keys(s.conversationsDone).length >= 3 },
+  { id: "first_step", label: "Premier pas", icon: "🌱", condition: (s) => s.xp >= 10 },
+  { id: "streak_3", label: "3 jours d'affilée", icon: "🔥", condition: (s) => s.streak >= 3 },
+  { id: "streak_7", label: "Semaine complète", icon: "🏆", condition: (s) => s.streak >= 7 },
+  { id: "level_5", label: "Niveau 5 atteint", icon: "⭐", condition: (s) => getLevel() >= 5 },
+  { id: "words_50", label: "50 expressions maîtrisées", icon: "📚", condition: (s) => countMasteredWords() >= 50 },
+  { id: "conversationalist", label: "Beau parleur", icon: "🗣️", condition: (s) => Object.keys(s.conversationsDone).length >= 3 },
 ];
 
 function checkBadges() {

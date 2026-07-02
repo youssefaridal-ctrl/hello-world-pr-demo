@@ -14,15 +14,15 @@ function categoryProgressPercent(categoryId) {
 
 export function renderLessons(container) {
   container.innerHTML = `
-    <div class="page-title">فئات المفردات</div>
-    <div class="page-subtitle">اختر موضوعاً وابدأ التعلم بالبطاقات، الاختبارات، الاستماع، والنطق.</div>
+    <div class="page-title">Expressions par thème</div>
+    <div class="page-subtitle">Des outils de communication avancés pour parler avec fluidité, sans traduire dans votre tête.</div>
     <div class="category-grid">
       ${vocabulary.map((cat) => `
         <a href="#/category/${cat.id}" class="category-card" style="background:${cat.color}">
           <div class="category-card__icon">${cat.icon}</div>
           <div>
             <div class="category-card__title">${cat.title}</div>
-            <div class="category-card__meta">${cat.words.length} كلمة</div>
+            <div class="category-card__meta">${cat.words.length} expressions</div>
           </div>
           <div class="category-card__progress"><div style="width:${categoryProgressPercent(cat.id)}%"></div></div>
         </a>

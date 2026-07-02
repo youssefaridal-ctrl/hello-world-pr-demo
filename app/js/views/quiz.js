@@ -7,7 +7,7 @@ const QUESTIONS_PER_ROUND = 8;
 export function renderQuiz(container, categoryId) {
   const cat = getCategoryById(categoryId);
   if (!cat) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>الفئة غير موجودة</p></div>`;
+    container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Thème introuvable</p></div>`;
     return;
   }
 
@@ -18,9 +18,9 @@ export function renderQuiz(container, categoryId) {
     const distractors = sample(
       allOtherWords.length >= 3 ? allOtherWords : getAllWords().filter((w) => w.fr !== word.fr),
       3
-    ).map((w) => w.ar);
-    const options = shuffle([word.ar, ...distractors]);
-    return { word, options, askFrench: true };
+    ).map((w) => w.definition);
+    const options = shuffle([word.definition, ...distractors]);
+    return { word, options };
   });
 
   let current = 0;
@@ -33,12 +33,12 @@ export function renderQuiz(container, categoryId) {
     }
     const q = questions[current];
     container.innerHTML = `
-      <a href="#/category/${cat.id}" class="back-link">→ رجوع</a>
-      <div class="page-title">${cat.title} · اختبار سريع</div>
+      <a href="#/category/${cat.id}" class="back-link">← Retour</a>
+      <div class="page-title">${cat.title} · Quiz de sens</div>
       <div class="quiz-progress progress-track"><div class="progress-track__bar" style="width:${(current / questions.length) * 100}%"></div></div>
       <div class="quiz-question fr-text">${q.word.fr}</div>
       <div class="quiz-options">
-        ${q.options.map((opt) => `<button class="quiz-option" data-opt="${encodeURIComponent(opt)}">${opt}</button>`).join("")}
+        ${q.options.map((opt) => `<button class="quiz-option fr-text" data-opt="${encodeURIComponent(opt)}">${opt}</button>`).join("")}
       </div>
       <div class="quiz-feedback" id="feedback"></div>
     `;
@@ -50,27 +50,27 @@ export function renderQuiz(container, categoryId) {
 
   function handleAnswer(btn, q) {
     const chosen = decodeURIComponent(btn.dataset.opt);
-    const isCorrect = chosen === q.word.ar;
+    const isCorrect = chosen === q.word.definition;
     container.querySelectorAll(".quiz-option").forEach((b) => {
       b.classList.add("disabled");
       const val = decodeURIComponent(b.dataset.opt);
-      if (val === q.word.ar) b.classList.add("correct");
+      if (val === q.word.definition) b.classList.add("correct");
       else if (b === btn) b.classList.add("wrong");
     });
     recordWordResult(cat.id, q.word.fr, isCorrect);
     const feedback = container.querySelector("#feedback");
     if (isCorrect) {
       correctCount += 1;
-      feedback.textContent = "إجابة صحيحة! ✅";
+      feedback.textContent = "Exact ! ✅";
       feedback.className = "quiz-feedback correct";
     } else {
-      feedback.textContent = `إجابة خاطئة، الصحيح: ${q.word.ar}`;
+      feedback.textContent = `Pas tout à fait : "${q.word.definition}"`;
       feedback.className = "quiz-feedback wrong";
     }
     setTimeout(() => {
       current += 1;
       renderQuestion();
-    }, 1100);
+    }, 1300);
   }
 
   function renderResult() {
@@ -84,14 +84,14 @@ export function renderQuiz(container, categoryId) {
       <div class="quiz-result card">
         <div style="font-size:2.4rem;">${percent >= 80 ? "🏆" : percent >= 50 ? "👏" : "💪"}</div>
         <div class="quiz-result__score num-ratio">${correctCount}/${questions.length}</div>
-        <p class="page-subtitle">حصلت على ${xpEarned} نقطة خبرة</p>
+        <p class="page-subtitle">${xpEarned} points d'expérience gagnés</p>
         <div style="display:flex; gap:10px; justify-content:center; margin-top:16px;">
-          <button class="btn btn--secondary" id="retry-btn">إعادة المحاولة</button>
-          <button class="btn btn--primary" id="done-btn">متابعة</button>
+          <button class="btn btn--secondary" id="retry-btn">Recommencer</button>
+          <button class="btn btn--primary" id="done-btn">Continuer</button>
         </div>
       </div>
     `;
-    newBadges.forEach((b) => showToast(`وسام جديد: ${b.icon} ${b.label}`, { type: "info" }));
+    newBadges.forEach((b) => showToast(`Nouveau badge : ${b.icon} ${b.label}`, { type: "info" }));
     container.querySelector("#retry-btn").addEventListener("click", () => renderQuiz(container, categoryId));
     container.querySelector("#done-btn").addEventListener("click", () => {
       window.location.hash = `#/category/${cat.id}`;

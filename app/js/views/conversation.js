@@ -8,7 +8,7 @@ const PASS_THRESHOLD = 45;
 export function renderConversation(container, convId) {
   const conv = conversations.find((c) => c.id === convId);
   if (!conv) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>المحادثة غير موجودة</p></div>`;
+    container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Conversation introuvable</p></div>`;
     return;
   }
 
@@ -19,13 +19,12 @@ export function renderConversation(container, convId) {
 
   function lineHtml(line) {
     const roleClass = line.role === "teacher" ? "dialogue-line--teacher" : "dialogue-line--user";
-    const speaker = line.role === "teacher" ? "الأستاذة صوفي 👩‍🏫" : "أنت 🗣️";
+    const speaker = line.role === "teacher" ? "Professeure Sophie 👩‍🏫" : "Vous 🗣️";
     return `
       <div class="dialogue-line ${roleClass}">
         <div class="dialogue-flow">
           <div class="dialogue-speaker">${speaker}</div>
           <div class="dialogue-bubble replay-audio" data-fr="${encodeURIComponent(line.fr)}">${line.fr}</div>
-          <div class="dialogue-translation">${line.ar}</div>
         </div>
       </div>
     `;
@@ -36,7 +35,7 @@ export function renderConversation(container, convId) {
     const next = conv.lines[cursor];
 
     container.innerHTML = `
-      <a href="#/conversations" class="back-link">→ رجوع إلى المحادثات</a>
+      <a href="#/conversations" class="back-link">← Retour aux conversations</a>
       <div class="page-title" style="margin-bottom:2px;">${conv.icon} ${conv.title}</div>
       <div class="page-subtitle">${conv.description}</div>
       <div class="quiz-progress progress-track"><div class="progress-track__bar" style="width:${(cursor / conv.lines.length) * 100}%"></div></div>
@@ -57,7 +56,7 @@ export function renderConversation(container, convId) {
 
     if (next.role === "teacher") {
       stage.innerHTML = `
-        <button class="btn btn--primary btn--block" id="continue-btn">▶ استمع وتابع</button>
+        <button class="btn btn--primary btn--block" id="continue-btn">▶ Écouter et continuer</button>
       `;
       stage.querySelector("#continue-btn").addEventListener("click", () => {
         speakFrench(next.fr);
@@ -67,9 +66,8 @@ export function renderConversation(container, convId) {
     } else {
       stage.innerHTML = `
         <div class="card" style="margin-bottom:10px;">
-          <div class="speaking-hint" style="margin-bottom:8px;">قل هذه الجملة:</div>
+          <div class="speaking-hint" style="margin-bottom:8px;">Dites cette phrase :</div>
           <div class="speaking-target__fr" style="text-align:center;">${next.fr}</div>
-          <div class="speaking-target__ar" style="text-align:center;">${next.ar}</div>
         </div>
         <div style="display:flex; align-items:center; justify-content:center; gap:14px;">
           <button class="icon-btn" id="hear-btn" style="width:52px;height:52px;font-size:1.3rem;">🔊</button>
@@ -81,7 +79,7 @@ export function renderConversation(container, convId) {
           <button class="icon-btn" id="skip-btn" style="width:52px;height:52px;font-size:1.3rem;">⏭️</button>
         </div>
         <div id="conv-result"></div>
-        ${!sttSupported ? `<p class="speaking-hint" style="text-align:center;margin-top:10px;">متصفحك لا يدعم التعرف الصوتي، اضغط ⏭️ للمتابعة بعد أن تنطقها بصوت عالٍ.</p>` : ""}
+        ${!sttSupported ? `<p class="speaking-hint" style="text-align:center;margin-top:10px;">Reconnaissance vocale indisponible ici — dites la phrase à voix haute, puis appuyez sur ⏭️ pour continuer.</p>` : ""}
       `;
       stage.querySelector("#hear-btn").addEventListener("click", () => speakFrench(next.fr));
       stage.querySelector("#skip-btn").addEventListener("click", () => advanceUserLine(next));
@@ -101,19 +99,19 @@ export function renderConversation(container, convId) {
       userTurns += 1;
       const resultArea = stage.querySelector("#conv-result");
       const level = score >= 80 ? "great" : score >= PASS_THRESHOLD ? "ok" : "retry";
-      const msg = score >= 80 ? "نطق رائع! 🌟" : score >= PASS_THRESHOLD ? "جيد، مفهوم 👍" : "لم أفهم جيداً، حاول مجدداً";
+      const msg = score >= 80 ? "Très bonne prononciation ! 🌟" : score >= PASS_THRESHOLD ? "Bien, c'est compréhensible 👍" : "Pas tout à fait, réessayez";
       resultArea.innerHTML = `
         <div class="speaking-result speaking-result--${level}">
           <div class="score-circle" style="--score:${score}"><span>${score}%</span></div>
           <div style="font-weight:700;">${msg}</div>
-          <div class="transcript-box">سمعت: "${transcript}"</div>
+          <div class="transcript-box">J'ai entendu : "${transcript}"</div>
         </div>
       `;
       if (score >= PASS_THRESHOLD) {
         setTimeout(() => advanceUserLine(line), 900);
       }
     } catch (err) {
-      showToast("لم أسمع شيئاً، حاول مرة أخرى", { type: "error" });
+      showToast("Rien entendu, réessayez", { type: "error" });
     } finally {
       listening = false;
       micBtn.classList.remove("listening");
@@ -127,22 +125,20 @@ export function renderConversation(container, convId) {
 
   function renderCompletion(stage) {
     const avgScore = userTurns ? Math.round(totalScore / userTurns) : 100;
-    const alreadyDone = false;
-    if (!alreadyDone) {
-      markConversationDone(conv.id);
-      const { newBadges } = addXp(25);
-      window.__refreshTopbar && window.__refreshTopbar();
-      if (avgScore >= 70) fireConfetti();
-      newBadges.forEach((b) => showToast(`وسام جديد: ${b.icon} ${b.label}`, { type: "info" }));
-    }
+    markConversationDone(conv.id);
+    const { newBadges } = addXp(25);
+    window.__refreshTopbar && window.__refreshTopbar();
+    if (avgScore >= 70) fireConfetti();
+    newBadges.forEach((b) => showToast(`Nouveau badge : ${b.icon} ${b.label}`, { type: "info" }));
+
     stage.innerHTML = `
       <div class="quiz-result card">
         <div style="font-size:2.4rem;">🎉</div>
-        <div style="font-weight:700; font-size:1.2rem; margin:6px 0;">أحسنت! أنهيت المحادثة</div>
-        <p class="page-subtitle">+25 نقطة خبرة${userTurns ? ` · متوسط النطق ${avgScore}%` : ""}</p>
+        <div style="font-weight:700; font-size:1.2rem; margin:6px 0;">Bravo, conversation terminée !</div>
+        <p class="page-subtitle">+25 points d'expérience${userTurns ? ` · précision moyenne ${avgScore}%` : ""}</p>
         <div style="display:flex; gap:10px; justify-content:center; margin-top:10px;">
-          <button class="btn btn--secondary" id="retry-conv-btn">إعادة المحادثة</button>
-          <a href="#/conversations" class="btn btn--primary">محادثات أخرى</a>
+          <button class="btn btn--secondary" id="retry-conv-btn">Rejouer</button>
+          <a href="#/conversations" class="btn btn--primary">Autres conversations</a>
         </div>
       </div>
     `;

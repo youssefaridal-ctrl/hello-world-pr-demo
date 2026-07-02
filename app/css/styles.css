@@ -21,9 +21,9 @@
   --radius-md: 16px;
   --radius-sm: 10px;
 
-  --font-ar: "Cairo", "Baloo 2", sans-serif;
-  --font-heading: "Baloo 2", "Cairo", sans-serif;
-  --font-fr: "Poppins", "Cairo", sans-serif;
+  --font-ui: "Poppins", "Baloo 2", sans-serif;
+  --font-heading: "Baloo 2", "Poppins", sans-serif;
+  --font-fr: "Poppins", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -33,7 +33,7 @@ html, body {
   height: 100%;
 }
 body {
-  font-family: var(--font-ar);
+  font-family: var(--font-ui);
   background: radial-gradient(circle at 10% 0%, #efe9ff 0%, var(--bg-app) 45%, #fff0f5 100%);
   color: var(--text-main);
   min-height: 100vh;
@@ -41,7 +41,19 @@ body {
 }
 a { text-decoration: none; color: inherit; }
 button { font-family: inherit; cursor: pointer; }
-.fr-text { font-family: var(--font-fr); direction: ltr; unicode-bidi: isolate; }
+.fr-text { font-family: var(--font-fr); }
+.register-tag {
+  display: inline-block;
+  align-self: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.25);
+  margin-bottom: 4px;
+}
 
 /* ============ الهيكل العام ============ */
 .app-shell {
@@ -343,7 +355,6 @@ button { font-family: inherit; cursor: pointer; }
 /* ============ الاختبارات (Quiz) ============ */
 .quiz-progress { margin-bottom: 18px; }
 .quiz-question { font-family: var(--font-fr); font-size: 1.4rem; font-weight: 700; text-align: center; margin: 18px 0 22px; direction: ltr; }
-.quiz-question--ar { font-family: var(--font-ar); direction: rtl; }
 .quiz-options { display: flex; flex-direction: column; gap: 10px; }
 .quiz-option {
   background: var(--bg-card); border: 2px solid var(--border-soft); border-radius: var(--radius-md);

@@ -6,6 +6,8 @@ import { renderFlashcards } from "./views/flashcards.js";
 import { renderQuiz } from "./views/quiz.js";
 import { renderListening } from "./views/listening.js";
 import { renderSpeaking } from "./views/speaking.js";
+import { renderShadowing } from "./views/shadowing.js";
+import { renderRapidResponse } from "./views/rapidResponse.js";
 import { renderGrammarList } from "./views/grammarList.js";
 import { renderGrammarDetail } from "./views/grammarDetail.js";
 import { renderConversationsList } from "./views/conversationsList.js";
@@ -37,6 +39,8 @@ const routes = [
   { pattern: /^\/category\/([^/]+)\/quiz$/, name: "lessons", handler: (m) => renderQuiz(appEl, m[1]) },
   { pattern: /^\/category\/([^/]+)\/listening$/, name: "lessons", handler: (m) => renderListening(appEl, m[1]) },
   { pattern: /^\/category\/([^/]+)\/speaking$/, name: "lessons", handler: (m) => renderSpeaking(appEl, m[1]) },
+  { pattern: /^\/category\/([^/]+)\/shadowing$/, name: "lessons", handler: (m) => renderShadowing(appEl, m[1]) },
+  { pattern: /^\/category\/([^/]+)\/rapid$/, name: "lessons", handler: (m) => renderRapidResponse(appEl, m[1]) },
   { pattern: /^\/grammar$/, name: "grammar", handler: () => renderGrammarList(appEl) },
   { pattern: /^\/grammar\/([^/]+)$/, name: "grammar", handler: (m) => renderGrammarDetail(appEl, m[1]) },
   { pattern: /^\/conversations$/, name: "conversations", handler: () => renderConversationsList(appEl) },
@@ -61,7 +65,7 @@ function render() {
   const resolved = resolveRoute();
   updateTopbar();
   if (!resolved) {
-    appEl.innerHTML = `<div class="empty-state"><div class="empty-state__icon">🤔</div><p>الصفحة غير موجودة</p></div>`;
+    appEl.innerHTML = `<div class="empty-state"><div class="empty-state__icon">🤔</div><p>Page introuvable</p></div>`;
     updateActiveNav(null);
     return;
   }
