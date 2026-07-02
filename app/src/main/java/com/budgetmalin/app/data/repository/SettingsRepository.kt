@@ -26,7 +26,7 @@ class SettingsRepository(context: Context) {
         prefs.edit().putString(KEY_CURRENCY, symbol).apply()
     }
 
-    fun setThemeMode(mode: AppThemeMode) {
+    fun updateThemeMode(mode: AppThemeMode) {
         themeMode = mode
         prefs.edit().putString(KEY_THEME, mode.name).apply()
     }

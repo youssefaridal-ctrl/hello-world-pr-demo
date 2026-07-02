@@ -64,17 +64,17 @@ fun SettingsScreen(
         SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
             SegmentedButton(
                 selected = settings.themeMode == AppThemeMode.LIGHT,
-                onClick = { settings.setThemeMode(AppThemeMode.LIGHT) },
+                onClick = { settings.updateThemeMode(AppThemeMode.LIGHT) },
                 shape = SegmentedButtonDefaults.itemShape(0, 3)
             ) { Text(stringResource(R.string.settings_theme_light)) }
             SegmentedButton(
                 selected = settings.themeMode == AppThemeMode.DARK,
-                onClick = { settings.setThemeMode(AppThemeMode.DARK) },
+                onClick = { settings.updateThemeMode(AppThemeMode.DARK) },
                 shape = SegmentedButtonDefaults.itemShape(1, 3)
             ) { Text(stringResource(R.string.settings_theme_dark)) }
             SegmentedButton(
                 selected = settings.themeMode == AppThemeMode.SYSTEM,
-                onClick = { settings.setThemeMode(AppThemeMode.SYSTEM) },
+                onClick = { settings.updateThemeMode(AppThemeMode.SYSTEM) },
                 shape = SegmentedButtonDefaults.itemShape(2, 3)
             ) { Text(stringResource(R.string.settings_theme_system)) }
         }
