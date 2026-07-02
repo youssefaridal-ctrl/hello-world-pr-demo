@@ -16,7 +16,8 @@ import kotlinx.coroutines.launch
 data class GoalRowState(
     val goal: GoalEntity,
     val progress: Float,
-    val projection: GoalProjection
+    val projection: GoalProjection,
+    val requiredMonthlyForDeadline: Double?
 )
 
 class GoalsViewModel(private val repository: BudgetRepository) : ViewModel() {
@@ -29,7 +30,8 @@ class GoalsViewModel(private val repository: BudgetRepository) : ViewModel() {
             val progress = if (goal.targetAmount > 0) (goal.savedAmount / goal.targetAmount).toFloat() else 0f
             val remaining = goal.targetAmount - goal.savedAmount
             val projection = ForecastEngine.projectGoalCompletion(remaining, transactions)
-            GoalRowState(goal, progress, projection)
+            val requiredMonthly = goal.deadline?.let { ForecastEngine.requiredMonthlySaving(remaining, it) }
+            GoalRowState(goal, progress, projection, requiredMonthly)
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
@@ -44,6 +46,12 @@ class GoalsViewModel(private val repository: BudgetRepository) : ViewModel() {
                     createdAt = DateUtils.nowMillis()
                 )
             )
+        }
+    }
+
+    fun updateGoal(goal: GoalEntity, name: String, target: Double, deadline: Long?) {
+        viewModelScope.launch {
+            repository.updateGoal(goal.copy(name = name, targetAmount = target, deadline = deadline))
         }
     }
 

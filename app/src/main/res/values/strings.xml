@@ -68,10 +68,17 @@
     <string name="goals_eta_unknown">Ajoutez de l\'épargne pour estimer une date</string>
     <string name="goals_achieved">🎉 Objectif atteint !</string>
     <string name="goals_dialog_title">Nouvel objectif</string>
+    <string name="goals_edit_title">Modifier l\'objectif</string>
     <string name="goals_dialog_name">Nom de l\'objectif</string>
     <string name="goals_dialog_name_hint">Ex : Voyage à Marrakech</string>
     <string name="goals_dialog_target">Montant cible</string>
+    <string name="goals_dialog_deadline">Date limite (optionnel)</string>
+    <string name="goals_deadline_none">Aucune échéance — appuyez pour en définir une</string>
+    <string name="goals_deadline_clear">Retirer l\'échéance</string>
     <string name="goals_add_funds">Ajouter de l\'épargne</string>
+    <string name="goals_monthly_needed">Épargnez environ %1$s/mois pour respecter l\'échéance du %2$s</string>
+    <string name="goals_on_track">✅ Vous êtes en bonne voie</string>
+    <string name="goals_behind">⚠️ Augmentez votre épargne mensuelle pour respecter l\'échéance</string>
 
     <!-- Statistics -->
     <string name="stats_title">Statistiques</string>
@@ -95,5 +102,6 @@
     <string name="action_cancel">Annuler</string>
     <string name="action_save">Enregistrer</string>
     <string name="action_delete">Supprimer</string>
+    <string name="action_edit">Modifier</string>
     <string name="cd_back">Retour</string>
 </resources>

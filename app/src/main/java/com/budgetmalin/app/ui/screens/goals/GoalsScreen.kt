@@ -15,9 +15,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +31,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -42,11 +49,14 @@ import com.budgetmalin.app.data.repository.BudgetRepository
 import com.budgetmalin.app.data.repository.SettingsRepository
 import com.budgetmalin.app.ui.GenericViewModelFactory
 import com.budgetmalin.app.ui.components.LabeledProgressBar
+import com.budgetmalin.app.ui.theme.ExpenseRed
 import com.budgetmalin.app.ui.theme.Mint
 import com.budgetmalin.app.util.CurrencyFormatter
+import com.budgetmalin.app.util.DateUtils
 import java.time.format.TextStyle
 import java.util.Locale
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GoalsScreen(
     repository: BudgetRepository,
@@ -56,7 +66,8 @@ fun GoalsScreen(
     val rows by viewModel.goalRows.collectAsState()
     val currency = settings.currencySymbol
 
-    var showAddGoal by remember { mutableStateOf(false) }
+    var showGoalDialog by remember { mutableStateOf(false) }
+    var editingGoal by remember { mutableStateOf<GoalEntity?>(null) }
     var fundingGoal by remember { mutableStateOf<GoalEntity?>(null) }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -95,7 +106,13 @@ fun GoalsScreen(
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text(row.goal.name, style = MaterialTheme.typography.titleMedium)
+                                    Text(row.goal.name, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+                                    IconButton(onClick = {
+                                        editingGoal = row.goal
+                                        showGoalDialog = true
+                                    }) {
+                                        Icon(Icons.Filled.Edit, contentDescription = stringResource(R.string.action_edit))
+                                    }
                                     IconButton(onClick = { viewModel.deleteGoal(row.goal) }) {
                                         Icon(Icons.Filled.Delete, contentDescription = stringResource(R.string.action_delete))
                                     }
@@ -126,6 +143,26 @@ fun GoalsScreen(
                                     style = MaterialTheme.typography.bodySmall,
                                     color = if (row.progress >= 1f) Mint else MaterialTheme.colorScheme.onSurfaceVariant
                                 )
+
+                                if (row.progress < 1f && row.goal.deadline != null && row.requiredMonthlyForDeadline != null) {
+                                    Spacer(modifier = Modifier.height(6.dp))
+                                    Text(
+                                        stringResource(
+                                            R.string.goals_monthly_needed,
+                                            CurrencyFormatter.format(row.requiredMonthlyForDeadline, currency),
+                                            DateUtils.formatShortDate(row.goal.deadline)
+                                        ),
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    val onTrack = row.projection.averageMonthlySaving >= row.requiredMonthlyForDeadline
+                                    Text(
+                                        stringResource(if (onTrack) R.string.goals_on_track else R.string.goals_behind),
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = if (onTrack) Mint else ExpenseRed
+                                    )
+                                }
+
                                 Spacer(modifier = Modifier.height(10.dp))
                                 TextButton(onClick = { fundingGoal = row.goal }) {
                                     Text(stringResource(R.string.goals_add_funds))
@@ -138,7 +175,10 @@ fun GoalsScreen(
         }
 
         Button(
-            onClick = { showAddGoal = true },
+            onClick = {
+                editingGoal = null
+                showGoalDialog = true
+            },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(20.dp)
@@ -149,12 +189,16 @@ fun GoalsScreen(
         }
     }
 
-    if (showAddGoal) {
-        var name by remember { mutableStateOf("") }
-        var target by remember { mutableStateOf("") }
+    if (showGoalDialog) {
+        val goal = editingGoal
+        var name by remember(goal) { mutableStateOf(goal?.name ?: "") }
+        var target by remember(goal) { mutableStateOf(goal?.targetAmount?.toString() ?: "") }
+        var deadline by remember(goal) { mutableStateOf(goal?.deadline) }
+        var showDatePicker by remember { mutableStateOf(false) }
+
         AlertDialog(
-            onDismissRequest = { showAddGoal = false },
-            title = { Text(stringResource(R.string.goals_dialog_title)) },
+            onDismissRequest = { showGoalDialog = false },
+            title = { Text(stringResource(if (goal == null) R.string.goals_dialog_title else R.string.goals_edit_title)) },
             text = {
                 Column {
                     OutlinedTextField(
@@ -176,21 +220,73 @@ fun GoalsScreen(
                         ),
                         modifier = Modifier.fillMaxWidth()
                     )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Text(
+                        stringResource(R.string.goals_dialog_deadline),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Surface(
+                        onClick = { showDatePicker = true },
+                        shape = MaterialTheme.shapes.small,
+                        color = MaterialTheme.colorScheme.surfaceVariant,
+                        modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(12.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Icon(Icons.Filled.CalendarToday, contentDescription = null)
+                            Text(
+                                deadline?.let { DateUtils.formatShortDate(it) } ?: stringResource(R.string.goals_deadline_none),
+                                modifier = Modifier.weight(1f),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                            if (deadline != null) {
+                                IconButton(onClick = { deadline = null }) {
+                                    Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.goals_deadline_clear))
+                                }
+                            }
+                        }
+                    }
                 }
             },
             confirmButton = {
                 TextButton(onClick = {
                     val targetValue = target.replace(",", ".").toDoubleOrNull()
                     if (name.isNotBlank() && targetValue != null && targetValue > 0) {
-                        viewModel.addGoal(name.trim(), targetValue, null)
-                        showAddGoal = false
+                        if (goal == null) {
+                            viewModel.addGoal(name.trim(), targetValue, deadline)
+                        } else {
+                            viewModel.updateGoal(goal, name.trim(), targetValue, deadline)
+                        }
+                        showGoalDialog = false
                     }
                 }) { Text(stringResource(R.string.action_save)) }
             },
             dismissButton = {
-                TextButton(onClick = { showAddGoal = false }) { Text(stringResource(R.string.action_cancel)) }
+                TextButton(onClick = { showGoalDialog = false }) { Text(stringResource(R.string.action_cancel)) }
             }
         )
+
+        if (showDatePicker) {
+            val datePickerState = rememberDatePickerState(initialSelectedDateMillis = deadline ?: DateUtils.nowMillis())
+            DatePickerDialog(
+                onDismissRequest = { showDatePicker = false },
+                confirmButton = {
+                    TextButton(onClick = {
+                        datePickerState.selectedDateMillis?.let { deadline = it }
+                        showDatePicker = false
+                    }) { Text(stringResource(R.string.action_save)) }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showDatePicker = false }) { Text(stringResource(R.string.action_cancel)) }
+                }
+            ) {
+                DatePicker(state = datePickerState)
+            }
+        }
     }
 
     fundingGoal?.let { goal ->

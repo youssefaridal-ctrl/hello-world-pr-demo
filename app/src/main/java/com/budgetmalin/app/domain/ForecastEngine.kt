@@ -85,4 +85,15 @@ object ForecastEngine {
         val monthsNeeded = kotlin.math.ceil(remainingAmount / avg).toInt()
         return GoalProjection(monthsNeeded, YearMonth.now().plusMonths(monthsNeeded.toLong()), avg)
     }
+
+    /**
+     * Splits the remaining amount into equal monthly instalments between now and [deadlineMillis],
+     * so a goal with a deadline can be read as "save X per month" rather than just a percentage.
+     */
+    fun requiredMonthlySaving(remainingAmount: Double, deadlineMillis: Long): Double {
+        if (remainingAmount <= 0.0) return 0.0
+        val deadlineMonth = YearMonth.from(DateUtils.millisToLocalDate(deadlineMillis))
+        val monthsLeft = max(1, java.time.temporal.ChronoUnit.MONTHS.between(YearMonth.now(), deadlineMonth).toInt() + 1)
+        return remainingAmount / monthsLeft
+    }
 }
