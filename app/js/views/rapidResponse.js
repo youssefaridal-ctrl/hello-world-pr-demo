@@ -1,7 +1,7 @@
 import { getCategoryById } from "../data/vocabulary.js";
 import { speakFrench, sttSupported, listenOnce, similarityScore } from "../speech.js";
-import { addXp, recordWordResult, recordLastPosition } from "../progress.js";
-import { shuffle, showToast, fireConfetti } from "../utils.js";
+import { addXp, recordWordResult, recordLastPosition, isLevelUnlocked } from "../progress.js";
+import { shuffle, showToast, fireConfetti, notifyLevelUnlock, guardLevelLocked } from "../utils.js";
 
 // Réponse rapide : seule la définition/situation est affichée (jamais l'expression),
 // avec un compte à rebours, pour forcer la production spontanée sans passer par la traduction.
@@ -14,6 +14,7 @@ export function renderRapidResponse(container, categoryId) {
     container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Thème introuvable</p></div>`;
     return;
   }
+  if (guardLevelLocked(container, isLevelUnlocked, cat.level, `#/category/${cat.id}`, "Retour")) return;
   recordLastPosition({ hash: `#/category/${cat.id}/rapid`, label: `Réponse rapide · ${cat.title}`, icon: cat.icon });
 
   const words = shuffle(cat.words).slice(0, Math.min(ROUND_SIZE, cat.words.length));
@@ -109,7 +110,7 @@ export function renderRapidResponse(container, categoryId) {
 
   function renderResult() {
     const avgScore = words.length ? Math.round(totalScore / words.length) : 0;
-    const { newBadges } = addXp(Math.max(Math.round(avgScore / 4), 6));
+    const { newBadges, newlyUnlockedLevel } = addXp(Math.max(Math.round(avgScore / 4), 6));
     window.__refreshTopbar && window.__refreshTopbar();
     if (avgScore >= 70) fireConfetti();
 
@@ -125,6 +126,7 @@ export function renderRapidResponse(container, categoryId) {
       </div>
     `;
     newBadges.forEach((b) => showToast(`Nouveau badge : ${b.icon} ${b.label}`, { type: "info" }));
+    notifyLevelUnlock(newlyUnlockedLevel);
     container.querySelector("#retry-btn").addEventListener("click", () => renderRapidResponse(container, categoryId));
     container.querySelector("#done-btn").addEventListener("click", () => {
       window.location.hash = `#/category/${cat.id}`;

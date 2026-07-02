@@ -1,12 +1,22 @@
 import { grammarLessons } from "../data/grammar.js";
 import { speakFrench } from "../speech.js";
-import { addXp, markLessonComplete, isLessonComplete, recordLastPosition } from "../progress.js";
-import { showToast } from "../utils.js";
+import { addXp, markLessonComplete, isLessonComplete, recordLastPosition, isLevelUnlocked } from "../progress.js";
+import { showToast, notifyLevelUnlock } from "../utils.js";
 
 export function renderGrammarDetail(container, lessonId) {
   const lesson = grammarLessons.find((l) => l.id === lessonId);
   if (!lesson) {
     container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Leçon introuvable</p></div>`;
+    return;
+  }
+  if (!isLevelUnlocked(lesson.level)) {
+    container.innerHTML = `
+      <a href="#/grammar" class="back-link">← Retour à la grammaire</a>
+      <div class="empty-state">
+        <div class="empty-state__icon">🔒</div>
+        <p>Cette leçon appartient au niveau ${lesson.level}, pas encore débloqué.</p>
+      </div>
+    `;
     return;
   }
   recordLastPosition({ hash: `#/grammar/${lesson.id}`, label: `Grammaire : ${lesson.title}`, icon: lesson.icon });
@@ -58,10 +68,11 @@ export function renderGrammarDetail(container, lessonId) {
   if (!alreadyDone) {
     completeBtn.addEventListener("click", () => {
       markLessonComplete(progressKey);
-      const { newBadges } = addXp(10);
+      const { newBadges, newlyUnlockedLevel } = addXp(10);
       window.__refreshTopbar && window.__refreshTopbar();
       showToast("Bravo ! +10 points d'expérience", { type: "success" });
       newBadges.forEach((b) => showToast(`Nouveau badge : ${b.icon} ${b.label}`, { type: "info" }));
+      notifyLevelUnlock(newlyUnlockedLevel);
       completeBtn.textContent = "Leçon terminée ✅";
       completeBtn.disabled = true;
     });

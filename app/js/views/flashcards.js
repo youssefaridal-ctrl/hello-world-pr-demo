@@ -1,7 +1,7 @@
 import { getCategoryById } from "../data/vocabulary.js";
 import { speakFrench } from "../speech.js";
-import { addXp, recordWordResult, recordLastPosition } from "../progress.js";
-import { showToast } from "../utils.js";
+import { addXp, recordWordResult, recordLastPosition, isLevelUnlocked } from "../progress.js";
+import { showToast, notifyLevelUnlock, guardLevelLocked } from "../utils.js";
 
 export function renderFlashcards(container, categoryId) {
   const cat = getCategoryById(categoryId);
@@ -9,6 +9,7 @@ export function renderFlashcards(container, categoryId) {
     container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Thème introuvable</p></div>`;
     return;
   }
+  if (guardLevelLocked(container, isLevelUnlocked, cat.level, `#/category/${cat.id}`, "Retour")) return;
   recordLastPosition({ hash: `#/category/${cat.id}/flashcards`, label: `Cartes mémo · ${cat.title}`, icon: cat.icon });
   let index = 0;
   let flipped = false;
@@ -68,10 +69,11 @@ export function renderFlashcards(container, categoryId) {
       } else {
         if (!xpAwarded) {
           xpAwarded = true;
-          const { newBadges } = addXp(15);
+          const { newBadges, newlyUnlockedLevel } = addXp(15);
           window.__refreshTopbar && window.__refreshTopbar();
           showToast("Bravo, série terminée ! +15 points", { type: "success" });
           newBadges.forEach((b) => showToast(`Nouveau badge : ${b.icon} ${b.label}`, { type: "info" }));
+          notifyLevelUnlock(newlyUnlockedLevel);
         }
         window.location.hash = `#/category/${cat.id}`;
       }

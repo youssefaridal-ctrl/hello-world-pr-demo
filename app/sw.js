@@ -2,7 +2,7 @@
 // Incrémenter CACHE_VERSION à chaque mise à jour de contenu (nouvelles leçons,
 // nouveaux exercices, changements de structure) pour que l'app installée sur
 // le téléphone détecte la nouvelle version et propose la mise à jour à l'utilisateur.
-const CACHE_VERSION = "v3";
+const CACHE_VERSION = "v4";
 const CACHE_NAME = `aridal-lab-${CACHE_VERSION}`;
 
 const PRECACHE_URLS = [
@@ -14,9 +14,12 @@ const PRECACHE_URLS = [
   "./js/progress.js",
   "./js/speech.js",
   "./js/utils.js",
+  "./js/notifications.js",
   "./js/data/conversations.js",
   "./js/data/grammar.js",
   "./js/data/vocabulary.js",
+  "./js/data/placementTest.js",
+  "./js/views/placementTest.js",
   "./js/views/categoryHub.js",
   "./js/views/conversation.js",
   "./js/views/conversationsList.js",
@@ -52,6 +55,33 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("message", (event) => {
   if (event.data === "SKIP_WAITING") {
     self.skipWaiting();
+  }
+});
+
+// Ouvre (ou remet au premier plan) l'application quand l'utilisateur touche le rappel.
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if ("focus" in client) return client.focus();
+      }
+      if (self.clients.openWindow) return self.clients.openWindow("./index.html");
+    })
+  );
+});
+
+// Meilleur effort (Chrome/Android, app installée) : le navigateur décide seul de la fréquence réelle.
+self.addEventListener("periodicsync", (event) => {
+  if (event.tag === "aridal-reminder-check") {
+    event.waitUntil(
+      self.registration.showNotification("Aridal Lab", {
+        body: "C'est peut-être l'heure de votre séance de français 🇫🇷",
+        icon: "./assets/icon-192.png",
+        badge: "./assets/icon-192.png",
+        tag: "aridal-reminder",
+      })
+    );
   }
 });
 

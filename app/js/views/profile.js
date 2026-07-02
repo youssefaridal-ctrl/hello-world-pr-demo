@@ -1,6 +1,9 @@
 import { vocabulary } from "../data/vocabulary.js";
-import { getState, getLevel, getXpIntoLevel, countMasteredWords, getAllBadgesWithStatus, getRecentActivity, resetProgress } from "../progress.js";
+import { getState, getLevel, getXpIntoLevel, countMasteredWords, getAllBadgesWithStatus, getRecentActivity, getCecrlLevel, getUnlockedLevels, getReminder, setReminder, resetProgress } from "../progress.js";
 import { showToast, timeAgo } from "../utils.js";
+import { notificationsSupported, requestNotificationPermission } from "../notifications.js";
+
+const LEVEL_LABELS = { B1: "Intermédiaire (B1)", B2: "Intermédiaire avancé (B2)", C1: "Avancé (C1)" };
 
 const WEEKDAYS_FR = ["dim", "lun", "mar", "mer", "jeu", "ven", "sam"];
 
@@ -22,6 +25,9 @@ export function renderProfile(container) {
   const recentActivity = getRecentActivity();
   const days = lastSevenDays();
   const activeDates = new Set(state.history.map((h) => h.date));
+  const cecrlLevel = getCecrlLevel();
+  const unlockedLevels = getUnlockedLevels();
+  const reminder = getReminder();
 
   container.innerHTML = `
     <div class="page-title">Mon profil</div>
@@ -72,18 +78,64 @@ export function renderProfile(container) {
       `).join("")}
     </div>
 
+    <div class="section-heading"><h2>Niveau CECRL</h2></div>
+    <div class="card" style="margin-bottom:16px;">
+      <div style="font-weight:700; color:var(--color-primary);">${cecrlLevel ? LEVEL_LABELS[cecrlLevel] : "Non évalué"}</div>
+      <div style="color:var(--text-muted); font-size:0.85rem; margin:6px 0 12px;">
+        Niveaux débloqués : ${unlockedLevels.join(", ") || "—"}
+      </div>
+      <a href="#/test" class="btn btn--secondary btn--block">Repasser le test de positionnement</a>
+    </div>
+
+    <div class="section-heading"><h2>Rappels de pratique</h2></div>
+    <div class="card" style="margin-bottom:16px;">
+      <label style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px;">
+        <span style="font-weight:700;">Me le rappeler chaque jour</span>
+        <input type="checkbox" id="reminder-toggle" ${reminder.enabled ? "checked" : ""} style="width:20px; height:20px;" />
+      </label>
+      <label style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+        <span>Heure de la séance</span>
+        <input type="time" id="reminder-time" value="${reminder.time}" style="border:1px solid var(--border-soft); border-radius:8px; padding:6px 10px; font-family:inherit;" />
+      </label>
+      <p style="color:var(--text-muted); font-size:0.78rem; margin-top:12px; line-height:1.6;">
+        ${notificationsSupported
+          ? "Le rappel s'affiche dès que vous ouvrez l'app après l'heure choisie. Pour une fiabilité maximale, gardez l'app installée et ouvrez-la régulièrement — sans serveur dédié, une notification garantie app fermée n'est pas possible sur tous les appareils."
+          : "Les notifications ne sont pas supportées par ce navigateur."}
+      </p>
+    </div>
+
     <div class="section-heading"><h2>Paramètres</h2></div>
     <div class="card">
       <button class="btn btn--danger btn--block" id="reset-btn">Réinitialiser ma progression</button>
     </div>
   `;
 
+  const reminderToggle = container.querySelector("#reminder-toggle");
+  const reminderTime = container.querySelector("#reminder-time");
+
+  async function saveReminder() {
+    const enabled = reminderToggle.checked;
+    if (enabled && notificationsSupported && Notification.permission !== "granted") {
+      const permission = await requestNotificationPermission();
+      if (permission !== "granted") {
+        showToast("Autorisez les notifications pour activer les rappels", { type: "error" });
+        reminderToggle.checked = false;
+        return;
+      }
+    }
+    setReminder({ enabled: reminderToggle.checked, time: reminderTime.value });
+    showToast(reminderToggle.checked ? "Rappel activé 🔔" : "Rappel désactivé", { type: "info" });
+  }
+
+  reminderToggle.addEventListener("change", saveReminder);
+  reminderTime.addEventListener("change", saveReminder);
+
   container.querySelector("#reset-btn").addEventListener("click", () => {
     if (confirm("Voulez-vous vraiment réinitialiser toute votre progression ? Cette action est irréversible.")) {
       resetProgress();
       window.__refreshTopbar && window.__refreshTopbar();
       showToast("Progression réinitialisée", { type: "info" });
-      renderProfile(container);
+      window.location.hash = "#/test";
     }
   });
 }

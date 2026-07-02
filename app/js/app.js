@@ -1,5 +1,7 @@
-import { getState, getLevel, getXpIntoLevel } from "./progress.js";
+import { getState, getLevel, getXpIntoLevel, getCecrlLevel } from "./progress.js";
+import { startReminderPolling, tryRegisterPeriodicSync } from "./notifications.js";
 import { renderHome } from "./views/home.js";
+import { renderPlacementTest } from "./views/placementTest.js";
 import { renderLessons } from "./views/lessons.js";
 import { renderCategoryHub } from "./views/categoryHub.js";
 import { renderFlashcards } from "./views/flashcards.js";
@@ -32,6 +34,7 @@ function updateActiveNav(routeName) {
 }
 
 const routes = [
+  { pattern: /^\/test$/, name: null, handler: () => renderPlacementTest(appEl) },
   { pattern: /^\/(home)?$/, name: "home", handler: () => renderHome(appEl) },
   { pattern: /^\/lessons$/, name: "lessons", handler: () => renderLessons(appEl) },
   { pattern: /^\/category\/([^/]+)$/, name: "lessons", handler: (m) => renderCategoryHub(appEl, m[1]) },
@@ -62,6 +65,11 @@ function resolveRoute() {
 }
 
 function render() {
+  const hash = window.location.hash.replace(/^#/, "") || "/home";
+  if (!getCecrlLevel() && hash !== "/test") {
+    window.location.hash = "#/test";
+    return;
+  }
   const resolved = resolveRoute();
   updateTopbar();
   if (!resolved) {
@@ -77,6 +85,8 @@ function render() {
 window.addEventListener("hashchange", render);
 window.addEventListener("DOMContentLoaded", render);
 render();
+startReminderPolling();
+tryRegisterPeriodicSync();
 
 // Redessine la pastille de score après tout changement de progression (appelé depuis les vues après addXp)
 window.__refreshTopbar = updateTopbar;

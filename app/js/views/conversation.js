@@ -1,7 +1,7 @@
 import { conversations } from "../data/conversations.js";
 import { speakFrench, sttSupported, listenOnce, similarityScore } from "../speech.js";
-import { addXp, markConversationDone, recordLastPosition } from "../progress.js";
-import { showToast, fireConfetti } from "../utils.js";
+import { addXp, markConversationDone, recordLastPosition, isLevelUnlocked } from "../progress.js";
+import { showToast, fireConfetti, notifyLevelUnlock } from "../utils.js";
 
 const PASS_THRESHOLD = 45;
 
@@ -9,6 +9,16 @@ export function renderConversation(container, convId) {
   const conv = conversations.find((c) => c.id === convId);
   if (!conv) {
     container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Conversation introuvable</p></div>`;
+    return;
+  }
+  if (!isLevelUnlocked(conv.cecrl)) {
+    container.innerHTML = `
+      <a href="#/conversations" class="back-link">← Retour aux conversations</a>
+      <div class="empty-state">
+        <div class="empty-state__icon">🔒</div>
+        <p>Cette conversation appartient au niveau ${conv.cecrl}, pas encore débloqué.</p>
+      </div>
+    `;
     return;
   }
   recordLastPosition({ hash: `#/conversation/${conv.id}`, label: `Dialogue : ${conv.title}`, icon: conv.icon });
@@ -127,10 +137,11 @@ export function renderConversation(container, convId) {
   function renderCompletion(stage) {
     const avgScore = userTurns ? Math.round(totalScore / userTurns) : 100;
     markConversationDone(conv.id);
-    const { newBadges } = addXp(25);
+    const { newBadges, newlyUnlockedLevel } = addXp(25);
     window.__refreshTopbar && window.__refreshTopbar();
     if (avgScore >= 70) fireConfetti();
     newBadges.forEach((b) => showToast(`Nouveau badge : ${b.icon} ${b.label}`, { type: "info" }));
+    notifyLevelUnlock(newlyUnlockedLevel);
 
     stage.innerHTML = `
       <div class="quiz-result card">

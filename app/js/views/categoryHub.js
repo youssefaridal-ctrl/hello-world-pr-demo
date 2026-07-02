@@ -1,10 +1,20 @@
 import { getCategoryById } from "../data/vocabulary.js";
-import { getState, recordLastPosition } from "../progress.js";
+import { getState, recordLastPosition, isLevelUnlocked } from "../progress.js";
 
 export function renderCategoryHub(container, categoryId) {
   const cat = getCategoryById(categoryId);
   if (!cat) {
     container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Thème introuvable</p></div>`;
+    return;
+  }
+  if (!isLevelUnlocked(cat.level)) {
+    container.innerHTML = `
+      <a href="#/lessons" class="back-link">← Retour aux thèmes</a>
+      <div class="empty-state">
+        <div class="empty-state__icon">🔒</div>
+        <p>Ce thème appartient au niveau ${cat.level}, pas encore débloqué.<br/>Continuez à pratiquer pour l'ouvrir !</p>
+      </div>
+    `;
     return;
   }
   recordLastPosition({ hash: `#/category/${cat.id}`, label: cat.title, icon: cat.icon });
@@ -20,7 +30,7 @@ export function renderCategoryHub(container, categoryId) {
     <div class="hub-header">
       <div class="hub-header__icon" style="background:${cat.color}">${cat.icon}</div>
       <div>
-        <div class="page-title" style="margin:0;">${cat.title}</div>
+        <div class="page-title" style="margin:0;">${cat.title} <span class="level-badge level-badge--${cat.level}">${cat.level}</span></div>
         <div class="page-subtitle" style="margin:0;">${cat.words.length} expressions · ${mastered} maîtrisées</div>
       </div>
     </div>

@@ -37,6 +37,28 @@ export function showToast(message, { type = "success", duration = 2600 } = {}) {
   }, duration);
 }
 
+const LEVEL_LABELS = { B1: "Intermédiaire (B1)", B2: "Intermédiaire avancé (B2)", C1: "Avancé (C1)" };
+
+export function notifyLevelUnlock(newlyUnlockedLevel) {
+  if (!newlyUnlockedLevel) return;
+  showToast(`Niveau débloqué : ${LEVEL_LABELS[newlyUnlockedLevel] || newlyUnlockedLevel} 🔓`, { type: "info", duration: 3400 });
+  fireConfetti(30);
+}
+
+// Bloque l'accès direct (par lien) à un contenu dont le niveau CECRL n'est pas encore débloqué.
+// Retourne true (et affiche l'écran de verrouillage) si l'accès doit être refusé.
+export function guardLevelLocked(container, isLevelUnlocked, level, backHash, backLabel) {
+  if (isLevelUnlocked(level)) return false;
+  container.innerHTML = `
+    <a href="${backHash}" class="back-link">← ${backLabel}</a>
+    <div class="empty-state">
+      <div class="empty-state__icon">🔒</div>
+      <p>Ce contenu appartient au niveau ${level}, pas encore débloqué.</p>
+    </div>
+  `;
+  return true;
+}
+
 export function timeAgo(timestamp) {
   const diffMs = Date.now() - timestamp;
   const minutes = Math.floor(diffMs / 60000);

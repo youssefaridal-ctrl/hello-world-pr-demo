@@ -6,6 +6,7 @@ export const conversations = [
     title: "Entretien d'embauche",
     icon: "💼",
     level: "Avancé",
+    cecrl: "C1",
     description: "Présente-toi avec assurance et réponds sans hésiter aux questions classiques d'un recruteur.",
     lines: [
       { role: "teacher", fr: "Bonjour, merci d'être venu. Pouvez-vous vous présenter en quelques mots ?" },
@@ -25,6 +26,7 @@ export const conversations = [
     title: "Réunion de travail",
     icon: "🗂️",
     level: "Avancé",
+    cecrl: "C1",
     description: "Défends ton point de vue et gère poliment un désaccord pendant une réunion.",
     lines: [
       { role: "teacher", fr: "Alors, qu'est-ce que vous pensez de la nouvelle stratégie proposée ?" },
@@ -42,6 +44,7 @@ export const conversations = [
     title: "Raconter son week-end",
     icon: "📖",
     level: "Intermédiaire",
+    cecrl: "B1",
     description: "Raconte une anecdote de façon fluide, avec du rythme et du naturel, à un collègue.",
     lines: [
       { role: "teacher", fr: "Alors, comment s'est passé ton week-end ?" },
@@ -59,6 +62,7 @@ export const conversations = [
     title: "Discussion entre amis",
     icon: "☕",
     level: "Intermédiaire",
+    cecrl: "B1",
     description: "Entraîne-toi au small talk naturel et à donner ton avis dans une conversation détendue.",
     lines: [
       { role: "teacher", fr: "Ça fait un bail ! Qu'est-ce que tu deviens ?" },
@@ -76,6 +80,7 @@ export const conversations = [
     title: "Gérer un imprévu",
     icon: "📞",
     level: "Avancé",
+    cecrl: "B2",
     description: "Annule un rendez-vous, excuse-toi avec tact et propose une alternative, sans bafouiller.",
     lines: [
       { role: "user", fr: "Allô, désolé de te déranger, j'ai un petit souci pour notre rendez-vous de ce soir." },
