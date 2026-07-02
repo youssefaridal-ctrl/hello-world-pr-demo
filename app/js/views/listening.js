@@ -1,7 +1,7 @@
 import { getCategoryById, getAllWords } from "../data/vocabulary.js";
 import { speakFrench } from "../speech.js";
-import { addXp, recordWordResult, recordLastPosition } from "../progress.js";
-import { shuffle, sample, showToast, fireConfetti } from "../utils.js";
+import { addXp, recordWordResult, recordLastPosition, isLevelUnlocked } from "../progress.js";
+import { shuffle, sample, showToast, fireConfetti, notifyLevelUnlock, guardLevelLocked } from "../utils.js";
 
 const QUESTIONS_PER_ROUND = 8;
 
@@ -11,6 +11,7 @@ export function renderListening(container, categoryId) {
     container.innerHTML = `<div class="empty-state"><div class="empty-state__icon">😕</div><p>Thème introuvable</p></div>`;
     return;
   }
+  if (guardLevelLocked(container, isLevelUnlocked, cat.level, `#/category/${cat.id}`, "Retour")) return;
   recordLastPosition({ hash: `#/category/${cat.id}/listening`, label: `Écoute active · ${cat.title}`, icon: cat.icon });
 
   const pool = shuffle(cat.words).slice(0, Math.min(QUESTIONS_PER_ROUND, cat.words.length));
@@ -84,7 +85,7 @@ export function renderListening(container, categoryId) {
   function renderResult() {
     const percent = Math.round((correctCount / questions.length) * 100);
     const xpEarned = correctCount * 5;
-    const { newBadges } = addXp(xpEarned);
+    const { newBadges, newlyUnlockedLevel } = addXp(xpEarned);
     window.__refreshTopbar && window.__refreshTopbar();
     if (percent >= 80) fireConfetti();
 
@@ -100,6 +101,7 @@ export function renderListening(container, categoryId) {
       </div>
     `;
     newBadges.forEach((b) => showToast(`Nouveau badge : ${b.icon} ${b.label}`, { type: "info" }));
+    notifyLevelUnlock(newlyUnlockedLevel);
     container.querySelector("#retry-btn").addEventListener("click", () => renderListening(container, categoryId));
     container.querySelector("#done-btn").addEventListener("click", () => {
       window.location.hash = `#/category/${cat.id}`;

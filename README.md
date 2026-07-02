@@ -35,6 +35,23 @@ full speech-recognition support).
 
 ### Features
 
+- **Placement test**: a 19-question diagnostic (grammar + expressions +
+  nuance, styled like a French-institute positioning test) that places new
+  users at the right starting level — B1, B2, or C1 — instead of forcing
+  everyone through the same content. Users can also skip it and pick a level
+  manually.
+- **Three CECRL levels (B1/B2/C1) with progressive unlock**: every theme,
+  grammar lesson, and conversation is tagged with a level; content above the
+  assessed level is locked until enough expressions are mastered (20 to
+  unlock B2, 50 for C1), shown via level badges and lock screens throughout
+  the app.
+- **Practice-time reminders**: an optional daily notification (time picker in
+  the profile) nudges users back at their chosen practice time via the Web
+  Notifications API and the service worker, with a best-effort Periodic
+  Background Sync registration on supporting browsers. Honest caveat shown
+  in-app: without a push backend, delivery while the app is fully closed
+  isn't guaranteed on every device — the primary mechanism checks on app
+  open.
 - **Fluency-focused expression themes** (not basic vocabulary): logical
   connectors, filler expressions, giving opinions, spontaneous reactions,
   reformulating, idioms, social/professional small talk, handling

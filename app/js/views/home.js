@@ -1,6 +1,6 @@
 import { vocabulary } from "../data/vocabulary.js";
 import { conversations } from "../data/conversations.js";
-import { getState, getLevel, getXpIntoLevel, countMasteredWords, getEarnedBadges, getLastPosition } from "../progress.js";
+import { getState, getLevel, getXpIntoLevel, countMasteredWords, getEarnedBadges, getLastPosition, isLevelUnlocked } from "../progress.js";
 import { timeAgo } from "../utils.js";
 
 function categoryProgressPercent(categoryId) {
@@ -22,10 +22,12 @@ export function renderHome(container) {
   const totalWords = vocabulary.reduce((sum, c) => sum + c.words.length, 0);
   const badges = getEarnedBadges();
 
+  const unlockedCategories = vocabulary.filter((c) => isLevelUnlocked(c.level));
+  const unlockedConversations = conversations.filter((c) => isLevelUnlocked(c.cecrl));
   const hasProgress = Object.keys(state.wordMastery).length > 0;
   const nextCategory = hasProgress
-    ? vocabulary.find((c) => categoryProgressPercent(c.id) < 100) || vocabulary[0]
-    : vocabulary[0];
+    ? unlockedCategories.find((c) => categoryProgressPercent(c.id) < 100) || unlockedCategories[0] || vocabulary[0]
+    : unlockedCategories[0] || vocabulary[0];
   const lastPosition = getLastPosition();
 
   const greeting = level >= 10 ? "Vous parlez avec une vraie aisance ! 🎉" : level >= 5 ? "Belle progression, continuez ainsi !" : "Prêt à parler français sans hésiter ?";
@@ -72,8 +74,9 @@ export function renderHome(container) {
       <a href="#/conversations">Tout voir</a>
     </div>
     <div class="category-grid">
-      ${conversations.slice(0, 2).map((c) => `
+      ${unlockedConversations.slice(0, 2).map((c) => `
         <a href="#/conversation/${c.id}" class="category-card" style="background:linear-gradient(135deg,#6C5CE7,#9B6BFF)">
+          <span class="level-badge">${c.cecrl}</span>
           <div class="category-card__icon">${c.icon}</div>
           <div>
             <div class="category-card__title">${c.title}</div>
@@ -88,8 +91,9 @@ export function renderHome(container) {
       <a href="#/lessons">Tout voir</a>
     </div>
     <div class="category-grid">
-      ${vocabulary.slice(0, 4).map((cat) => `
+      ${unlockedCategories.slice(0, 4).map((cat) => `
         <a href="#/category/${cat.id}" class="category-card" style="background:${cat.color}">
+          <span class="level-badge">${cat.level}</span>
           <div class="category-card__icon">${cat.icon}</div>
           <div>
             <div class="category-card__title">${cat.title}</div>

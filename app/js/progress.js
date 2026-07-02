@@ -17,8 +17,15 @@ function defaultState() {
     history: [], // [{date, xp}]
     lastPosition: null, // { hash, label, icon, timestamp }
     recentActivity: [], // [{ hash, label, icon, timestamp }] — most recent first, capped
+    cecrlLevel: null, // "B1" | "B2" | "C1" — set by the placement test
+    unlockedLevels: [], // CECRL levels the learner can currently access
+    reminder: { enabled: false, time: "19:00", lastNotifiedDate: null },
   };
 }
+
+// Niveaux CECRL couverts par l'app (public déjà à l'aise à l'écrit, donc on démarre à B1)
+export const CECRL_LEVELS = ["B1", "B2", "C1"];
+const UNLOCK_THRESHOLDS = { B2: 20, C1: 50 }; // mots maîtrisés requis pour débloquer le niveau suivant
 
 let state = load();
 
@@ -93,8 +100,9 @@ export function addXp(amount) {
   }
   if (state.history.length > 30) state.history.shift();
   const newBadges = checkBadges();
+  const newlyUnlockedLevel = refreshUnlockedLevels();
   save();
-  return { newBadges, level: getLevel() };
+  return { newBadges, level: getLevel(), newlyUnlockedLevel };
 }
 
 export function markLessonComplete(lessonId) {
@@ -169,6 +177,71 @@ export function getLastPosition() {
 
 export function getRecentActivity() {
   return state.recentActivity;
+}
+
+// ---------- Niveau CECRL (test de positionnement + déblocage progressif) ----------
+
+export function setCecrlLevel(level) {
+  state.cecrlLevel = level;
+  const startIndex = CECRL_LEVELS.indexOf(level);
+  state.unlockedLevels = CECRL_LEVELS.slice(0, startIndex + 1);
+  save();
+}
+
+export function getCecrlLevel() {
+  return state.cecrlLevel;
+}
+
+export function isLevelUnlocked(level) {
+  return state.unlockedLevels.includes(level);
+}
+
+export function getUnlockedLevels() {
+  return state.unlockedLevels;
+}
+
+// Débloque le niveau suivant si le nombre de mots maîtrisés dépasse le seuil requis.
+// Renvoie le niveau nouvellement débloqué (ou null).
+function refreshUnlockedLevels() {
+  if (!state.cecrlLevel) return null;
+  const mastered = countMasteredWords();
+  let newlyUnlocked = null;
+  for (const level of CECRL_LEVELS) {
+    if (state.unlockedLevels.includes(level)) continue;
+    const threshold = UNLOCK_THRESHOLDS[level];
+    if (threshold !== undefined && mastered >= threshold) {
+      state.unlockedLevels.push(level);
+      newlyUnlocked = level;
+    }
+  }
+  return newlyUnlocked;
+}
+
+// ---------- Rappels de la séance (notifications) ----------
+
+export function setReminder({ enabled, time }) {
+  state.reminder = { ...state.reminder, enabled, time };
+  save();
+}
+
+export function getReminder() {
+  return state.reminder;
+}
+
+export function markReminderNotifiedToday() {
+  state.reminder.lastNotifiedDate = todayStr();
+  save();
+}
+
+export function shouldNotifyNow() {
+  const r = state.reminder;
+  if (!r.enabled) return false;
+  if (r.lastNotifiedDate === todayStr()) return false;
+  const [h, m] = r.time.split(":").map(Number);
+  const now = new Date();
+  const target = new Date();
+  target.setHours(h, m, 0, 0);
+  return now >= target;
 }
 
 export function resetProgress() {

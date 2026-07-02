@@ -9,6 +9,7 @@ export const vocabulary = [
     title: "Connecteurs logiques",
     icon: "🔗",
     color: "#4D96FF",
+    level: "B2",
     words: [
       { fr: "Donc", phonetic: "donk", definition: "Introduit une conséquence logique.", example: "Il pleut, donc je prends un parapluie.", register: "neutre" },
       { fr: "Cependant", phonetic: "sœ-pahn-dahn", definition: "Marque une opposition, plus soutenu que 'mais'.", example: "L'idée est bonne, cependant elle coûte cher.", register: "soutenu" },
@@ -29,6 +30,7 @@ export const vocabulary = [
     title: "Combler les silences",
     icon: "💬",
     color: "#FF6B6B",
+    level: "B1",
     words: [
       { fr: "Enfin", phonetic: "ahn-fan", definition: "Sert à corriger ou préciser ce qu'on vient de dire.", example: "Il est sympa, enfin, la plupart du temps.", register: "neutre" },
       { fr: "Tu vois", phonetic: "tü vwa", definition: "Vérifie que l'interlocuteur suit, très courant à l'oral.", example: "C'est compliqué, tu vois, il faut tout réorganiser.", register: "familier" },
@@ -47,6 +49,7 @@ export const vocabulary = [
     title: "Donner son avis",
     icon: "🗣️",
     color: "#9B6BFF",
+    level: "B2",
     words: [
       { fr: "À mon avis", phonetic: "a mon a-vee", definition: "Introduit une opinion personnelle.", example: "À mon avis, ce projet va réussir.", register: "neutre" },
       { fr: "Je pense que", phonetic: "zhœ pahnss kœ", definition: "Exprime une opinion réfléchie.", example: "Je pense que nous devrions attendre.", register: "neutre" },
@@ -65,6 +68,7 @@ export const vocabulary = [
     title: "Réagir spontanément",
     icon: "⚡",
     color: "#FFB84D",
+    level: "B1",
     words: [
       { fr: "Ah bon ?", phonetic: "a bohn", definition: "Exprime la surprise ou l'intérêt poli.", example: "Il a démissionné. — Ah bon ? Depuis quand ?", register: "neutre" },
       { fr: "Sérieux ?", phonetic: "say-ryeu", definition: "Exprime une forte surprise, très oral.", example: "Sérieux ? Tu as gagné au concours ?", register: "familier" },
@@ -83,6 +87,7 @@ export const vocabulary = [
     title: "Nuancer et reformuler",
     icon: "🔄",
     color: "#3DDC97",
+    level: "B2",
     words: [
       { fr: "En d'autres termes", phonetic: "ahn dotr term", definition: "Introduit une reformulation plus claire.", example: "Le projet est reporté, en d'autres termes, il faut patienter.", register: "soutenu" },
       { fr: "Autrement dit", phonetic: "otr-mahn dee", definition: "Reformule une idée de façon plus simple.", example: "Le budget est gelé, autrement dit, pas de nouvelles dépenses.", register: "neutre" },
@@ -99,6 +104,7 @@ export const vocabulary = [
     title: "Expressions idiomatiques",
     icon: "🎭",
     color: "#FF8FB1",
+    level: "B2",
     words: [
       { fr: "Avoir le cafard", phonetic: "a-vwar lœ ka-far", definition: "Se sentir triste, déprimé sans raison précise.", example: "Depuis quelques jours, j'ai un peu le cafard.", register: "familier" },
       { fr: "Coûter les yeux de la tête", phonetic: "kou-tay lay zyeu dœ la tett", definition: "Être extrêmement cher.", example: "Cet appartement coûte les yeux de la tête.", register: "familier" },
@@ -117,6 +123,7 @@ export const vocabulary = [
     title: "Small talk social et pro",
     icon: "🤝",
     color: "#4DB8FF",
+    level: "B1",
     words: [
       { fr: "Qu'est-ce que tu deviens ?", phonetic: "kess kœ tü dœ-vyan", definition: "Demande amicale sur l'actualité de quelqu'un.", example: "Ça faisait longtemps ! Qu'est-ce que tu deviens ?", register: "familier" },
       { fr: "Ça fait un bail !", phonetic: "sa fè un ba-y", definition: "Signifie que cela fait longtemps qu'on ne s'est pas vus.", example: "Salut ! Ça fait un bail, dis donc !", register: "familier" },
@@ -133,6 +140,7 @@ export const vocabulary = [
     title: "Gérer un désaccord",
     icon: "⚖️",
     color: "#7B61FF",
+    level: "C1",
     words: [
       { fr: "Je comprends ton point de vue, mais...", phonetic: "zhœ kohn-prahn tohn pwan dœ vü mè", definition: "Reconnaît l'avis de l'autre avant de nuancer.", example: "Je comprends ton point de vue, mais je vois les choses différemment.", register: "neutre" },
       { fr: "Je vois ce que tu veux dire, cependant...", phonetic: "zhœ vwa sœ kœ tü veu deer sœ-pahn-dahn", definition: "Valide l'idée de l'autre avant de contredire poliment.", example: "Je vois ce que tu veux dire, cependant les chiffres montrent autre chose.", register: "soutenu" },
@@ -148,6 +156,7 @@ export const vocabulary = [
     title: "Raconter une anecdote",
     icon: "📖",
     color: "#FFA24D",
+    level: "B2",
     words: [
       { fr: "Alors, figure-toi que...", phonetic: "a-lor feegür-twa kœ", definition: "Introduit une anecdote surprenante.", example: "Alors, figure-toi que j'ai croisé mon ancien prof hier !", register: "familier" },
       { fr: "Du coup, devine quoi", phonetic: "dü kou dœ-veen kwa", definition: "Crée un effet de suspense dans un récit oral.", example: "Du coup, devine quoi, il a dit oui !", register: "familier" },
@@ -163,6 +172,7 @@ export const vocabulary = [
     title: "Registres de politesse",
     icon: "🎩",
     color: "#5DC1FF",
+    level: "C1",
     words: [
       { fr: "Auriez-vous l'amabilité de...", phonetic: "o-ryay vou la-ma-bee-lee-tay dœ", definition: "Formule très polie pour demander un service.", example: "Auriez-vous l'amabilité de fermer la fenêtre ?", register: "soutenu" },
       { fr: "Seriez-vous disponible pour...", phonetic: "sœ-ryay vou dee-spo-neebl pour", definition: "Demande formelle de disponibilité.", example: "Seriez-vous disponible pour un appel demain ?", register: "soutenu" },

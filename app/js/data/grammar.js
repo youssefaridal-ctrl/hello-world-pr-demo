@@ -3,6 +3,7 @@ export const grammarLessons = [
   {
     id: "subjonctif",
     title: "Le subjonctif présent",
+    level: "B2",
     icon: "📘",
     explanation:
       "Le subjonctif exprime le doute, le souhait, l'obligation ou l'émotion. Il s'utilise après certaines expressions : il faut que, je veux que, je doute que, bien que... Pour la plupart des verbes, on part de la 3ᵉ personne du pluriel au présent (ils parlent → qu'ils parlent) et on ajoute -e, -es, -e, -ions, -iez, -ent.",
@@ -40,6 +41,7 @@ export const grammarLessons = [
   {
     id: "discours-rapporte",
     title: "Le discours rapporté",
+    level: "B2",
     icon: "💭",
     explanation:
       "Pour rapporter les paroles de quelqu'un, on utilise dire que / demander si / demander ce que. Au passé, les temps changent : présent → imparfait, passé composé → plus-que-parfait, futur → conditionnel présent. Les indicateurs de temps changent aussi (aujourd'hui → ce jour-là, demain → le lendemain).",
@@ -54,6 +56,7 @@ export const grammarLessons = [
   {
     id: "concordance-temps",
     title: "La concordance des temps",
+    level: "B2",
     icon: "⏳",
     explanation:
       "Le temps du verbe subordonné dépend du temps du verbe principal. Si le verbe principal est au passé, l'action simultanée se met à l'imparfait, l'action antérieure au plus-que-parfait, et l'action postérieure au conditionnel présent.",
@@ -66,6 +69,7 @@ export const grammarLessons = [
   {
     id: "pronoms-relatifs",
     title: "Les pronoms relatifs composés",
+    level: "C1",
     icon: "🧩",
     explanation:
       "Au-delà de qui/que/où/dont, les pronoms composés (lequel, à laquelle, sur lesquels, ce dont, ce à quoi...) permettent des phrases plus précises et plus élégantes, typiques d'un français soutenu.",
@@ -80,6 +84,7 @@ export const grammarLessons = [
   {
     id: "gerondif",
     title: "Le gérondif",
+    level: "B1",
     icon: "🌀",
     explanation:
       "Le gérondif (en + participe présent) exprime la simultanéité, la manière ou la condition. Il rend le discours plus fluide en évitant deux phrases séparées.",
@@ -93,6 +98,7 @@ export const grammarLessons = [
   {
     id: "voix-passive",
     title: "La voix passive",
+    level: "B2",
     icon: "🔃",
     explanation:
       "La voix passive met en valeur l'action ou son résultat plutôt que celui qui la fait. Construction : sujet + être (au temps voulu) + participe passé (+ par + agent, facultatif).",

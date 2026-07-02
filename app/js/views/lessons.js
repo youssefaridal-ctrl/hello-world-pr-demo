@@ -1,5 +1,6 @@
 import { vocabulary } from "../data/vocabulary.js";
-import { getState } from "../progress.js";
+import { getState, isLevelUnlocked } from "../progress.js";
+import { showToast } from "../utils.js";
 
 function categoryProgressPercent(categoryId) {
   const state = getState();
@@ -17,8 +18,11 @@ export function renderLessons(container) {
     <div class="page-title">Expressions par thème</div>
     <div class="page-subtitle">Des outils de communication avancés pour parler avec fluidité, sans traduire dans votre tête.</div>
     <div class="category-grid">
-      ${vocabulary.map((cat) => `
-        <a href="#/category/${cat.id}" class="category-card" style="background:${cat.color}">
+      ${vocabulary.map((cat) => {
+        const unlocked = isLevelUnlocked(cat.level);
+        return `
+        <a href="${unlocked ? `#/category/${cat.id}` : "#"}" class="category-card ${unlocked ? "" : "locked"}" data-locked="${!unlocked}" data-cat="${cat.id}" style="background:${cat.color}">
+          <span class="level-badge">${cat.level}${unlocked ? "" : " 🔒"}</span>
           <div class="category-card__icon">${cat.icon}</div>
           <div>
             <div class="category-card__title">${cat.title}</div>
@@ -26,7 +30,16 @@ export function renderLessons(container) {
           </div>
           <div class="category-card__progress"><div style="width:${categoryProgressPercent(cat.id)}%"></div></div>
         </a>
-      `).join("")}
+      `;
+      }).join("")}
     </div>
   `;
+
+  container.querySelectorAll('.category-card[data-locked="true"]').forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      const cat = vocabulary.find((c) => c.id === el.dataset.cat);
+      showToast(`Niveau ${cat.level} pas encore débloqué — continuez à pratiquer pour l'ouvrir 🔒`, { type: "info" });
+    });
+  });
 }

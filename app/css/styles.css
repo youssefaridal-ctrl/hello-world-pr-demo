@@ -322,6 +322,37 @@ button { font-family: inherit; cursor: pointer; }
 }
 .category-card__progress > div { height: 100%; background: #fff; border-radius: 999px; }
 
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+.level-badge--B1 { background: rgba(61, 220, 151, 0.18); color: #1a9c6b; }
+.level-badge--B2 { background: rgba(108, 92, 231, 0.15); color: var(--color-primary); }
+.level-badge--C1 { background: rgba(255, 107, 107, 0.15); color: #d64545; }
+.category-card .level-badge {
+  position: absolute;
+  top: 12px;
+  inset-inline-end: 12px;
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+}
+.category-card.locked, .card.locked, .conversation-card.locked {
+  opacity: 0.55;
+  filter: grayscale(0.4);
+  cursor: not-allowed;
+}
+.lock-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px; border-radius: var(--radius-sm); background: #F9F8FF;
+  opacity: 0.6;
+}
+.lock-row__icon { font-size: 1.1rem; }
+
 /* ============ صفحة الفئة (المركز) ============ */
 .hub-header {
   display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
