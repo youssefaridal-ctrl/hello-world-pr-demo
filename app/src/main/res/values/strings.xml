@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BudgetMalin</string>
+
+    <!-- Navigation -->
+    <string name="nav_dashboard">Accueil</string>
+    <string name="nav_transactions">Historique</string>
+    <string name="nav_budget">Budget</string>
+    <string name="nav_goals">Objectifs</string>
+    <string name="nav_stats">Statistiques</string>
+    <string name="nav_settings">Réglages</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_title">Bonjour 👋</string>
+    <string name="dashboard_subtitle">Voici votre situation financière</string>
+    <string name="dashboard_balance">Solde du mois</string>
+    <string name="dashboard_income">Revenus</string>
+    <string name="dashboard_expenses">Dépenses</string>
+    <string name="dashboard_forecast_title">Prévision de fin de mois</string>
+    <string name="dashboard_forecast_desc">D\'après vos habitudes de dépense</string>
+    <string name="dashboard_recent">Transactions récentes</string>
+    <string name="dashboard_see_all">Tout voir</string>
+    <string name="dashboard_empty">Aucune transaction pour le moment. Ajoutez-en une pour commencer !</string>
+    <string name="dashboard_over_budget">Dépassement prévu de %1$s</string>
+    <string name="dashboard_under_budget">Économie prévue de %1$s</string>
+
+    <!-- Transactions -->
+    <string name="transactions_title">Historique</string>
+    <string name="transactions_filter_all">Tout</string>
+    <string name="transactions_filter_income">Revenus</string>
+    <string name="transactions_filter_expense">Dépenses</string>
+    <string name="transactions_empty">Aucune transaction trouvée</string>
+    <string name="transactions_delete">Supprimer</string>
+
+    <!-- Add transaction -->
+    <string name="add_transaction_title">Nouvelle transaction</string>
+    <string name="add_transaction_edit_title">Modifier la transaction</string>
+    <string name="add_transaction_amount">Montant</string>
+    <string name="add_transaction_label">Description</string>
+    <string name="add_transaction_label_hint">Ex : Courses au marché</string>
+    <string name="add_transaction_category">Catégorie</string>
+    <string name="add_transaction_date">Date</string>
+    <string name="add_transaction_type_expense">Dépense</string>
+    <string name="add_transaction_type_income">Revenu</string>
+    <string name="add_transaction_save">Enregistrer</string>
+    <string name="add_transaction_error_amount">Veuillez saisir un montant valide</string>
+    <string name="add_transaction_error_label">Veuillez saisir une description</string>
+
+    <!-- Budget -->
+    <string name="budget_title">Budget du mois</string>
+    <string name="budget_subtitle">Comparez vos prévisions et vos dépenses réelles</string>
+    <string name="budget_set">Définir un budget</string>
+    <string name="budget_spent_of">%1$s dépensés sur %2$s</string>
+    <string name="budget_remaining">%1$s restants</string>
+    <string name="budget_exceeded">Budget dépassé de %1$s</string>
+    <string name="budget_dialog_title">Budget pour %1$s</string>
+    <string name="budget_dialog_amount">Montant mensuel</string>
+
+    <!-- Goals -->
+    <string name="goals_title">Objectifs</string>
+    <string name="goals_subtitle">Suivez la réalisation de vos objectifs d\'épargne</string>
+    <string name="goals_add">Nouvel objectif</string>
+    <string name="goals_empty">Créez votre premier objectif d\'épargne</string>
+    <string name="goals_progress">%1$d %% atteint</string>
+    <string name="goals_target">Objectif : %1$s</string>
+    <string name="goals_saved">Épargné : %1$s</string>
+    <string name="goals_eta_on_track">Atteignable d\'ici le %1$s au rythme actuel</string>
+    <string name="goals_eta_unknown">Ajoutez de l\'épargne pour estimer une date</string>
+    <string name="goals_achieved">🎉 Objectif atteint !</string>
+    <string name="goals_dialog_title">Nouvel objectif</string>
+    <string name="goals_dialog_name">Nom de l\'objectif</string>
+    <string name="goals_dialog_name_hint">Ex : Voyage à Marrakech</string>
+    <string name="goals_dialog_target">Montant cible</string>
+    <string name="goals_add_funds">Ajouter de l\'épargne</string>
+
+    <!-- Statistics -->
+    <string name="stats_title">Statistiques</string>
+    <string name="stats_by_category">Dépenses par catégorie</string>
+    <string name="stats_trend">Tendance sur 6 mois</string>
+    <string name="stats_top_category">Catégorie la plus dépensière</string>
+    <string name="stats_empty">Pas encore assez de données pour afficher des statistiques</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Réglages</string>
+    <string name="settings_currency">Devise</string>
+    <string name="settings_theme">Thème</string>
+    <string name="settings_theme_light">Clair</string>
+    <string name="settings_theme_dark">Sombre</string>
+    <string name="settings_theme_system">Système</string>
+    <string name="settings_about">À propos</string>
+    <string name="settings_about_desc">BudgetMalin vous aide à prévoir vos dépenses et à atteindre vos objectifs d\'épargne.</string>
+
+    <!-- Common -->
+    <string name="action_add">Ajouter</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="action_save">Enregistrer</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="cd_back">Retour</string>
+</resources>
