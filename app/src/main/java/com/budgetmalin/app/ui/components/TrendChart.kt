@@ -1,20 +1,24 @@
 package com.budgetmalin.app.ui.components
 
-import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Fill
-import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 data class TrendPoint(val label: String, val value: Double)
@@ -23,45 +27,38 @@ data class TrendPoint(val label: String, val value: Double)
 fun TrendChart(
     points: List<TrendPoint>,
     lineColor: Color,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    highlightColor: Color = Color(0xFFFF6B6B)
 ) {
     val maxValue = (points.maxOfOrNull { it.value } ?: 0.0).takeIf { it > 0 } ?: 1.0
 
     Column(modifier = modifier.fillMaxWidth()) {
-        Canvas(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(140.dp)
+                .height(140.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.Bottom
         ) {
-            if (points.size < 2) return@Canvas
-            val stepX = size.width / (points.size - 1)
-            val coords = points.mapIndexed { index, point ->
-                Offset(
-                    x = index * stepX,
-                    y = size.height - (point.value / maxValue * size.height).toFloat()
+            points.forEachIndexed { index, point ->
+                val fraction = (point.value / maxValue).toFloat().coerceIn(0.04f, 1f)
+                val isLast = index == points.lastIndex
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight(fraction)
+                        .clip(RoundedCornerShape(topStart = 7.dp, topEnd = 7.dp, bottomStart = 3.dp, bottomEnd = 3.dp))
+                        .background(
+                            Brush.verticalGradient(
+                                colors = if (isLast) {
+                                    listOf(highlightColor, highlightColor.copy(alpha = 0.75f))
+                                } else {
+                                    listOf(lineColor, lineColor.copy(alpha = 0.75f))
+                                }
+                            )
+                        )
                 )
             }
-
-            val linePath = androidx.compose.ui.graphics.Path().apply {
-                moveTo(coords.first().x, coords.first().y)
-                coords.drop(1).forEach { lineTo(it.x, it.y) }
-            }
-            val fillPath = androidx.compose.ui.graphics.Path().apply {
-                addPath(linePath)
-                lineTo(coords.last().x, size.height)
-                lineTo(coords.first().x, size.height)
-                close()
-            }
-
-            drawPath(
-                path = fillPath,
-                brush = Brush.verticalGradient(
-                    colors = listOf(lineColor.copy(alpha = 0.35f), lineColor.copy(alpha = 0f))
-                ),
-                style = Fill
-            )
-            drawPath(path = linePath, color = lineColor, style = Stroke(width = 6f, cap = androidx.compose.ui.graphics.StrokeCap.Round))
-            coords.forEach { drawCircle(color = lineColor, radius = 8f, center = it) }
         }
         Row(modifier = Modifier.fillMaxWidth().padding(top = 6.dp)) {
             points.forEach { point ->
@@ -70,7 +67,7 @@ fun TrendChart(
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.weight(1f),
-                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                    textAlign = TextAlign.Center
                 )
             }
         }

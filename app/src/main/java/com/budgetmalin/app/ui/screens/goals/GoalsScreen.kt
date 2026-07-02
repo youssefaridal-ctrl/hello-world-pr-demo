@@ -114,11 +114,18 @@ fun GoalsScreen(
                                     trailingText = ""
                                 )
                                 Spacer(modifier = Modifier.height(8.dp))
-                                val etaText = row.projection.projectedMonth?.let { month ->
-                                    val monthName = month.month.getDisplayName(TextStyle.FULL, Locale.FRENCH)
-                                    stringResource(R.string.goals_eta_on_track, "${monthName.replaceFirstChar { it.uppercase() }} ${month.year}")
-                                } ?: stringResource(R.string.goals_eta_unknown)
-                                Text(etaText, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                val etaText = when {
+                                    row.progress >= 1f -> stringResource(R.string.goals_achieved)
+                                    else -> row.projection.projectedMonth?.let { month ->
+                                        val monthName = month.month.getDisplayName(TextStyle.FULL, Locale.FRENCH)
+                                        stringResource(R.string.goals_eta_on_track, "${monthName.replaceFirstChar { it.uppercase() }} ${month.year}")
+                                    } ?: stringResource(R.string.goals_eta_unknown)
+                                }
+                                Text(
+                                    etaText,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = if (row.progress >= 1f) Mint else MaterialTheme.colorScheme.onSurfaceVariant
+                                )
                                 Spacer(modifier = Modifier.height(10.dp))
                                 TextButton(onClick = { fundingGoal = row.goal }) {
                                     Text(stringResource(R.string.goals_add_funds))

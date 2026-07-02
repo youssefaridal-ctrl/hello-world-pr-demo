@@ -72,7 +72,7 @@ fun BudgetScreen(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(row.category.name, style = MaterialTheme.typography.titleMedium)
+                            Text("${row.category.icon} ${row.category.name}", style = MaterialTheme.typography.titleMedium)
                             if (row.limit > 0) {
                                 Text(
                                     stringResource(

@@ -12,13 +12,29 @@ android {
         applicationId = "com.budgetmalin.app"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
 
         vectorDrawables.useSupportLibrary = true
     }
 
+    // Fixed debug keystore (checked into the repo, debug-only, no security value) so every
+    // build — CI or local — is signed with the same key. Without this, each fresh CI runner
+    // auto-generates its own random debug key and installing a new build over an old one fails
+    // with "signatures don't match" instead of updating in place.
+    signingConfigs {
+        getByName("debug") {
+            storeFile = file("debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     buildTypes {
+        debug {
+            signingConfig = signingConfigs.getByName("debug")
+        }
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")

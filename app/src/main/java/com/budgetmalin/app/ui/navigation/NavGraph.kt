@@ -3,7 +3,7 @@ package com.budgetmalin.app.ui.navigation
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -57,7 +58,7 @@ fun BudgetMalinNavGraph(
                                     restoreState = true
                                 }
                             },
-                            icon = { Icon(item.icon, contentDescription = stringResource(item.labelRes)) },
+                            icon = { Text(item.emoji, fontSize = 18.sp) },
                             label = { Text(stringResource(item.labelRes)) }
                         )
                     }
@@ -66,9 +67,11 @@ fun BudgetMalinNavGraph(
         },
         floatingActionButton = {
             if (currentRoute?.route == Screen.Dashboard.route || currentRoute?.route == Screen.Transactions.route) {
-                FloatingActionButton(onClick = { navController.navigate(Screen.AddTransaction.createRoute()) }) {
-                    Icon(Icons.Filled.Add, contentDescription = stringResource(com.budgetmalin.app.R.string.cd_add_transaction))
-                }
+                ExtendedFloatingActionButton(
+                    onClick = { navController.navigate(Screen.AddTransaction.createRoute()) },
+                    icon = { Icon(Icons.Filled.Add, contentDescription = null) },
+                    text = { Text(stringResource(com.budgetmalin.app.R.string.action_add)) }
+                )
             }
         }
     ) { padding ->

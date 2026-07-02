@@ -1,5 +1,6 @@
 package com.budgetmalin.app.ui.screens.addtransaction
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -43,9 +44,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.budgetmalin.app.R
 import com.budgetmalin.app.data.local.entity.TransactionType
@@ -53,7 +56,8 @@ import com.budgetmalin.app.data.repository.BudgetRepository
 import com.budgetmalin.app.data.repository.SettingsRepository
 import com.budgetmalin.app.ui.GenericViewModelFactory
 import com.budgetmalin.app.ui.components.colorFromHex
-import com.budgetmalin.app.ui.components.iconForKey
+import com.budgetmalin.app.ui.theme.ExpenseRed
+import com.budgetmalin.app.ui.theme.IncomeGreen
 import com.budgetmalin.app.util.DateUtils
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -91,12 +95,20 @@ fun AddTransactionScreen(
             SegmentedButton(
                 selected = state.type == TransactionType.EXPENSE,
                 onClick = { viewModel.updateType(TransactionType.EXPENSE) },
-                shape = SegmentedButtonDefaults.itemShape(0, 2)
+                shape = SegmentedButtonDefaults.itemShape(0, 2),
+                colors = SegmentedButtonDefaults.colors(
+                    activeContainerColor = ExpenseRed,
+                    activeContentColor = Color.White
+                )
             ) { Text(stringResource(R.string.add_transaction_type_expense)) }
             SegmentedButton(
                 selected = state.type == TransactionType.INCOME,
                 onClick = { viewModel.updateType(TransactionType.INCOME) },
-                shape = SegmentedButtonDefaults.itemShape(1, 2)
+                shape = SegmentedButtonDefaults.itemShape(1, 2),
+                colors = SegmentedButtonDefaults.colors(
+                    activeContainerColor = IncomeGreen,
+                    activeContentColor = Color.White
+                )
             ) { Text(stringResource(R.string.add_transaction_type_income)) }
         }
 
@@ -170,13 +182,14 @@ fun AddTransactionScreen(
                     colors = CardDefaults.cardColors(
                         containerColor = if (selected) color.copy(alpha = 0.2f) else MaterialTheme.colorScheme.surfaceVariant
                     ),
+                    border = if (selected) BorderStroke(2.dp, color) else null,
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(
                         modifier = Modifier.padding(10.dp).fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Icon(iconForKey(category.icon), contentDescription = category.name, tint = color)
+                        Text(category.icon, fontSize = 18.sp)
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             category.name,

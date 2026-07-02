@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.budgetmalin.app.R
 import com.budgetmalin.app.data.repository.BudgetRepository
@@ -28,7 +29,6 @@ import com.budgetmalin.app.ui.GenericViewModelFactory
 import com.budgetmalin.app.ui.components.DonutChart
 import com.budgetmalin.app.ui.components.TrendChart
 import com.budgetmalin.app.ui.components.colorFromHex
-import com.budgetmalin.app.ui.components.iconForKey
 import com.budgetmalin.app.ui.theme.Indigo
 import com.budgetmalin.app.util.CurrencyFormatter
 
@@ -90,11 +90,7 @@ fun StatisticsScreen(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
-                        androidx.compose.material3.Icon(
-                            imageVector = iconForKey(category.icon),
-                            contentDescription = null,
-                            tint = colorFromHex(category.colorHex)
-                        )
+                        Text(category.icon, fontSize = 20.sp)
                         Column {
                             Text(stringResource(R.string.stats_top_category), style = MaterialTheme.typography.bodySmall)
                             Text(category.name, style = MaterialTheme.typography.titleMedium)
