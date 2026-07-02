@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ثروة — مكتبة ملخصات المال والثروة</title>
+<meta name="description" content="مكتبة رقمية تضم ملخصات ١٠٠ كتاب ومقالات وسلاسل في المال والثروة والاستثمار، مع مساحة شخصية لتتبع قراءاتك." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+
+<svg hidden>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></symbol>
+<symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.9-6.2-3.3-6.2 3.3 1.2-6.9-5-4.9 6.9-1z"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 2c1.2 3.8-3.6 5-3.6 9a3.6 3.6 0 007.2 0c0-1.8-.9-2.7-.9-2.7s1.8.9 1.8 3.6a5.4 5.4 0 01-10.8 0c0-4.6 3.6-5.4 3.6-9.4.9 0 1.8-.5 2.7-.5z"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="11 6 5 12 11 18"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5c2-1.3 5-1.3 7 0v14c-2-1.3-5-1.3-7 0V5z"/><path d="M20 5c-2-1.3-5-1.3-7 0v14c2-1.3 5-1.3 7 0V5z"/></symbol>
+<symbol id="i-scroll" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+</svg>
+
+<header class="site-header">
+  <div class="container header-row">
+    <a href="./index.html" class="brand"><span class="brand-mark">ث</span> ثروة</a>
+    <nav class="main-nav">
+      <a href="./index.html" class="is-active">الرئيسية</a>
+      <a href="./index.html#books">الكتب</a>
+      <a href="./index.html#articles">المقالات والسلاسل</a>
+      <a href="./dashboard.html">مساحتي</a>
+    </nav>
+    <div class="header-search"><svg class="icon"><use href="#i-search"/></svg> ابحث عن كتاب، مؤلف، أو فكرة…</div>
+    <div class="header-actions">
+      <a href="./dashboard.html" class="icon-btn" aria-label="المفضلة"><svg class="icon"><use href="#i-bookmark"/></svg></a>
+      <a href="./dashboard.html" class="avatar">س</a>
+      <button class="nav-toggle icon-btn" aria-label="القائمة"><svg class="icon"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow hero-eyebrow">مكتبة رقمية · ١٠٠ كتاب في المال والثروة</div>
+      <h1>افهم المال في <em>١٥ دقيقة</em>، لا في ١٥ فصلاً</h1>
+      <p class="hero-lede">ملخصات مكثّفة ومقالات وسلاسل مبنية على أهم ما كُتب عن الثروة والاستثمار وريادة الأعمال — بلغة عربية واضحة، وبمساحة شخصية تتذكر أين توقفت وتحسب رحلتك نحو الاستقلال المالي.</p>
+      <div class="hero-actions">
+        <a href="./summary.html" class="btn btn-bronze">ابدأ بأول ملخص <svg class="icon"><use href="#i-arrow"/></svg></a>
+        <a href="./dashboard.html" class="btn btn-outline">جرّب مساحتي الشخصية</a>
+      </div>
+      <div class="hero-proof">
+        <div class="proof-stat"><b class="num">١٠٠</b><span>ملخص كتاب</span></div>
+        <div class="proof-stat"><b class="num">٤٢</b><span>مقالاً موجزاً</span></div>
+        <div class="proof-stat"><b class="num">١٢</b><span>سلسلة متكاملة</span></div>
+        <div class="proof-stat"><b class="num">١٥</b><span>دقيقة متوسط القراءة</span></div>
+      </div>
+    </div>
+    <div class="hero-stack">
+      <div class="desk-card card-a tone-bronze">
+        <div class="cover"><span>الأب الغني<br/>والأب الفقير</span></div>
+        <small>روبرت كيوساكي</small>
+        <div class="cmeta"><span class="tag tag--bronze">بناء الثروة</span></div>
+      </div>
+      <div class="desk-card card-b tone-moss">
+        <div class="cover"><span>سيكولوجية<br/>المال</span></div>
+        <small>مورجان هاوسل</small>
+        <div class="cmeta"><span class="tag tag--moss">العقلية المالية</span></div>
+      </div>
+      <div class="desk-card card-c tone-navy">
+        <div class="cover"><span>أغنى رجل<br/>في بابل</span></div>
+        <small>جورج كلاسون</small>
+        <div class="cmeta"><span class="tag tag--navy">الادخار</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-strip">
+  <div class="container stats-row">
+    <div class="stat-block"><b class="num">١٠٠+</b><span>ملخص كتاب مُدقَّق</span></div>
+    <div class="stat-block"><b class="num">٨</b><span>تصنيفات مالية</span></div>
+    <div class="stat-block"><b class="num">٩٤٪</b><span>يُنهون أول ملخص لهم</span></div>
+    <div class="stat-block"><b class="num">٤.٨</b><span>تقييم القرّاء</span></div>
+  </div>
+</div>
+
+<section class="section" id="books">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">فهرس المكتبة</div>
+        <h2>تصفّح حسب ما يشغل بالك المالي</h2>
+      </div>
+      <a href="#" class="link-more">كل التصنيفات <svg class="icon"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="cat-rail">
+      <div class="cat-chip is-active"><svg class="icon"><use href="#i-layers"/></svg> الكل <b class="num">١٠٠</b></div>
+      <div class="cat-chip">بناء الثروة <b class="num">١٨</b></div>
+      <div class="cat-chip">الاستثمار <b class="num">١٦</b></div>
+      <div class="cat-chip">التمويل الشخصي <b class="num">١٤</b></div>
+      <div class="cat-chip">ريادة الأعمال <b class="num">١٥</b></div>
+      <div class="cat-chip">العقلية المالية <b class="num">١٢</b></div>
+      <div class="cat-chip">الادخار والميزانية <b class="num">١١</b></div>
+      <div class="cat-chip">العقارات <b class="num">٨</b></div>
+      <div class="cat-chip">سوق الأسهم <b class="num">٦</b></div>
+    </div>
+
+    <div class="book-grid">
+
+      <a class="book-card" href="./summary.html">
+        <div class="book-cover tone-bronze">
+          <div class="cover-top"><span class="cover-num">٠١</span><svg class="icon"><use href="#i-star"/></svg></div>
+          <div class="cover-bottom"><h3>الأب الغني والأب الفقير</h3><div class="author">روبرت كيوساكي</div></div>
+        </div>
+        <div class="book-body">
+          <div class="book-meta"><span class="meta-item"><svg class="icon"><use href="#i-clock"/></svg> ١٤ دقيقة</span><span class="tag tag--bronze">بناء الثروة</span></div>
+        </div>
+      </a>
+
+      <a class="book-card" href="./summary.html">
+        <div class="book-cover tone-navy">
+          <div class="cover-top"><span class="cover-num">٠٢</span><svg class="icon"><use href="#i-star"/></svg></div>
+          <div class="cover-bottom"><h3>المستثمر الذكي</h3><div class="author">بنجامين جراهام</div></div>
+        </div>
+        <div class="book-body">
+          <div class="book-meta"><span class="meta-item"><svg class="icon"><use href="#i-clock"/></svg> ١٨ دقيقة</span><span class="tag tag--navy">سوق الأسهم</span></div>
+        </div>
+      </a>
+
+      <a class="book-card" href="./summary.html">
+        <div class="book-cover tone-moss">
+          <div class="cover-top"><span class="cover-num">٠٣</span><svg class="icon"><use href="#i-star"/></svg></div>
+          <div class="cover-bottom"><h3>سيكولوجية المال</h3><div class="author">مورجان هاوسل</div></div>
+        </div>
+        <div class="book-body">
+          <div class="book-meta"><span class="meta-item"><svg class="icon"><use href="#i-clock"/></svg> ١٦ دقيقة</span><span class="tag tag--moss">العقلية المالية</span></div>
+        </div>
+      </a>
+
+      <a class="book-card" href="./summary.html">
+        <div class="book-cover tone-claret">
+          <div class="cover-top"><span class="cover-num">٠٤</span><svg class="icon"><use href="#i-star"/></svg></div>
+          <div class="cover-bottom"><h3>أغنى رجل في بابل</h3><div class="author">جورج كلاسون</div></div>
+        </div>
+        <div class="book-body">
+          <div class="book-meta"><span class="meta-item"><svg class="icon"><use href="#i-clock"/></svg> ١٢ دقيقة</span><span class="tag tag--claret">الادخار</span></div>
+        </div>
+      </a>
+
+      <a class="book-card" href="./summary.html">
+        <div class="book-cover tone-bronze">
+          <div class="cover-top"><span class="cover-num">٠٥</span><svg class="icon"><use href="#i-star"/></svg></div>
+          <div class="cover-bottom"><h3>فكّر تصبح غنياً</h3><div class="author">نابليون هيل</div></div>
+        </div>
+        <div class="book-body">
+          <div class="book-meta"><span class="meta-item"><svg class="icon"><use href="#i-clock"/></svg> ١٧ دقيقة</span><span class="tag tag--bronze">العقلية المالية</span></div>
+        </div>
+      </a>
+
+      <a class="book-card" href="./summary.html">
+        <div class="book-cover tone-navy">
+          <div class="cover-top"><span class="cover-num">٠٦</span><svg class="icon"><use href="#i-star"/></svg></div>
+          <div class="cover-bottom"><h3>المال: قواعد اللعبة</h3><div class="author">توني روبنز</div></div>
+        </div>
+        <div class="book-body">
+          <div class="book-meta"><span class="meta-item"><svg class="icon"><use href="#i-clock"/></svg> ٢٢ دقيقة</span><span class="tag tag--navy">الاستثمار</span></div>
+        </div>
+      </a>
+
+      <a class="book-card" href="./summary.html">
+        <div class="book-cover tone-moss">
+          <div class="cover-top"><span class="cover-num">٠٧</span><svg class="icon"><use href="#i-star"/></svg></div>
+          <div class="cover-bottom"><h3>الطريق البسيط إلى الثروة</h3><div class="author">جي إل كولينز</div></div>
+        </div>
+        <div class="book-body">
+          <div class="book-meta"><span class="meta-item"><svg class="icon"><use href="#i-clock"/></svg> ١٥ دقيقة</span><span class="tag tag--moss">الاستثمار</span></div>
+        </div>
+      </a>
+
+      <a class="book-card" href="./summary.html">
+        <div class="book-cover tone-claret">
+          <div class="cover-top"><span class="cover-num">٠٨</span><svg class="icon"><use href="#i-star"/></svg></div>
+          <div class="cover-bottom"><h3>من الصفر إلى مليون</h3><div class="author">إم جيه ديمارکو</div></div>
+        </div>
+        <div class="book-body">
+          <div class="book-meta"><span class="meta-item"><svg class="icon"><use href="#i-clock"/></svg> ١٩ دقيقة</span><span class="tag tag--claret">ريادة الأعمال</span></div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="articles">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">أبعد من الكتب</div>
+        <h2>مقالات موجزة وسلاسل متكاملة</h2>
+        <p>حين لا يكون لديك وقت لكتاب كامل، مقال من خمس دقائق أو حلقة من سلسلة قصيرة تكفي لتحريك قرارك المالي التالي.</p>
+      </div>
+    </div>
+    <div class="mixed-grid">
+
+      <a class="feature-card" href="./summary.html">
+        <div class="fc-icon"><svg class="icon"><use href="#i-scroll"/></svg></div>
+        <h3>٧ عادات مالية يمارسها أصحاب الثروات يومياً</h3>
+        <p>ملاحظات ميدانية من دراسات حول الفرق بين من يبني الثروة ومن يلاحقها طوال حياته.</p>
+        <div class="feature-foot"><span>مقال</span><span class="num">٦ دقائق</span></div>
+      </a>
+
+      <a class="feature-card" href="./summary.html">
+        <div class="fc-icon"><svg class="icon"><use href="#i-scroll"/></svg></div>
+        <h3>كيف تبني ميزانية لا تنهار في أول أسبوع؟</h3>
+        <p>طريقة عملية لتوزيع الدخل الشهري تراعي المصاريف الحقيقية، لا الجداول المثالية.</p>
+        <div class="feature-foot"><span>مقال</span><span class="num">٥ دقائق</span></div>
+      </a>
+
+      <a class="feature-card is-series" href="./summary.html">
+        <div class="fc-icon"><svg class="icon"><use href="#i-layers"/></svg></div>
+        <h3>سلسلة: من الراتب إلى الاستقلال المالي</h3>
+        <p>خمس حلقات متتابعة تأخذك من أول قرار ادخار إلى بناء مصادر دخل لا تعتمد على وظيفتك.</p>
+        <div class="feature-foot">
+          <div class="series-stack"><span style="background:#B3752E"></span><span style="background:#7C9169"></span><span style="background:#283655"></span><span style="background:#7C3B34"></span><span style="background:#B3752E"></span></div>
+          <span class="num">٥ أجزاء</span>
+        </div>
+      </a>
+
+      <a class="feature-card" href="./summary.html">
+        <div class="fc-icon"><svg class="icon"><use href="#i-scroll"/></svg></div>
+        <h3>الدخل النشط مقابل الدخل السلبي: دليل مبسّط</h3>
+        <p>الفرق الحقيقي بين أن تُبادل وقتك بمال، وأن يعمل مالك من أجلك.</p>
+        <div class="feature-foot"><span>مقال</span><span class="num">٧ دقائق</span></div>
+      </a>
+
+      <a class="feature-card is-series" href="./summary.html">
+        <div class="fc-icon"><svg class="icon"><use href="#i-layers"/></svg></div>
+        <h3>سلسلة: أساسيات الاستثمار للمبتدئين</h3>
+        <p>ست حلقات تبسّط الأسهم والصناديق والعقار والذهب، بلا مصطلحات معقّدة.</p>
+        <div class="feature-foot">
+          <div class="series-stack"><span style="background:#283655"></span><span style="background:#B3752E"></span><span style="background:#7C9169"></span><span style="background:#7C3B34"></span><span style="background:#283655"></span><span style="background:#B3752E"></span></div>
+          <span class="num">٦ أجزاء</span>
+        </div>
+      </a>
+
+      <a class="feature-card" href="./summary.html">
+        <div class="fc-icon"><svg class="icon"><use href="#i-scroll"/></svg></div>
+        <h3>لماذا يفلس بعض أصحاب الرواتب المرتفعة؟</h3>
+        <p>قراءة في الفخاخ السلوكية التي تجعل الدخل المرتفع لا يعني ثراءً حقيقياً.</p>
+        <div class="feature-foot"><span>مقال</span><span class="num">٨ دقائق</span></div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<div class="quote-band">
+  <div class="container">
+    <blockquote>لا تدّخر ما يتبقى بعد الإنفاق، بل أنفق ما يتبقى بعد الادّخار.</blockquote>
+    <cite>وارن بافيت — مستثمر</cite>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">مساحتك الشخصية</div>
+        <h2>سجلّك المالي المعرفي، في مكان واحد</h2>
+        <p>تابع ما تقرأه الآن، وما أنهيته، وما تنوي قراءته لاحقاً — واحصل على سلسلة أيام متتالية تحفّزك على الاستمرار.</p>
+      </div>
+    </div>
+    <div class="dash-teaser">
+      <div class="dash-teaser-copy">
+        <h3 class="font-display" style="font-size:1.4rem;">مكتبتي الخاصة تتذكر مكانك بالضبط</h3>
+        <ul>
+          <li><svg class="icon"><use href="#i-check"/></svg> استكمال تلقائي من آخر صفحة توقفت عندها في أي ملخص</li>
+          <li><svg class="icon"><use href="#i-check"/></svg> قوائم منفصلة: أقرأ الآن، اكتملت، أريد قراءتها لاحقاً</li>
+          <li><svg class="icon"><use href="#i-check"/></svg> مقالات محفوظة، وأهداف قراءة أسبوعية قابلة للتتبع</li>
+          <li><svg class="icon"><use href="#i-check"/></svg> شارات إنجاز وسلسلة أيام (Streak) تحافظ على الحافز</li>
+        </ul>
+        <a href="./dashboard.html" class="btn btn-primary" style="align-self:flex-start;">افتح مساحتي الآن <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="dash-teaser-visual">
+        <div class="mini-ledger">
+          <div class="mini-ledger-head">
+            <b>أقرأ الآن</b>
+            <span class="streak-chip"><svg class="icon"><use href="#i-flame"/></svg> ١٢ يوماً متتالياً</span>
+          </div>
+          <div class="mini-row">
+            <div class="mini-swatch tone-bronze" style="background:linear-gradient(155deg,#C98B3E,#7A4E1C)"></div>
+            <div class="mini-row-body">
+              <b>الأب الغني والأب الفقير</b>
+              <div class="progress-track"><div class="progress-fill is-bronze" style="width:64%"></div></div>
+            </div>
+            <span class="mini-pct">٦٤٪</span>
+          </div>
+          <div class="mini-row">
+            <div class="mini-swatch tone-moss" style="background:linear-gradient(155deg,#7C9169,#3D4B36)"></div>
+            <div class="mini-row-body">
+              <b>سيكولوجية المال</b>
+              <div class="progress-track"><div class="progress-fill" style="width:31%"></div></div>
+            </div>
+            <span class="mini-pct">٣١٪</span>
+          </div>
+          <div class="mini-row">
+            <div class="mini-swatch tone-navy" style="background:linear-gradient(155deg,#3B4A6B,#1B2233)"></div>
+            <div class="mini-row-body">
+              <b>سلسلة: أساسيات الاستثمار</b>
+              <div class="progress-track"><div class="progress-fill is-bronze" style="width:83%"></div></div>
+            </div>
+            <span class="mini-pct">٨٣٪</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="./index.html" class="brand"><span class="brand-mark">ث</span> ثروة</a>
+      <p>مكتبة ملخصات عربية متخصصة في المال والثروة والاستثمار — نقرأ الكتب الثقيلة كي تصل أنت إلى الفكرة في دقائق.</p>
+    </div>
+    <div class="footer-col">
+      <h4>المحتوى</h4>
+      <ul>
+        <li><a href="./index.html#books">كل الكتب</a></li>
+        <li><a href="./index.html#articles">المقالات</a></li>
+        <li><a href="./index.html#articles">السلاسل</a></li>
+        <li><a href="./dashboard.html">مساحتي</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>التصنيفات</h4>
+      <ul>
+        <li><a href="#">بناء الثروة</a></li>
+        <li><a href="#">الاستثمار</a></li>
+        <li><a href="#">ريادة الأعمال</a></li>
+        <li><a href="#">العقارات</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>نشرة أسبوعية</h4>
+      <p style="font-size:.86rem; color:rgba(232,230,217,.65); margin-bottom:12px;">ملخص كتاب واحد وفكرة مالية كل أسبوع، مباشرة إلى بريدك.</p>
+      <form class="newsletter-form" onsubmit="return false;">
+        <input type="email" placeholder="بريدك الإلكتروني" />
+        <button type="submit">اشترك</button>
+      </form>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© ٢٠٢٦ ثروة — مكتبة ملخصات المال والثروة</span>
+    <span>نموذج تصميم (Mockup) لأغراض العرض</span>
+  </div>
+</footer>
+
+<script src="./js/main.js"></script>
+</body>
+</html>

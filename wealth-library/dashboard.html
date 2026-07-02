@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>مساحتي — ثروة</title>
+<meta name="description" content="تتبّع الكتب التي تقرؤها، وما أنهيته، وما تنوي قراءته لاحقاً، ومقالاتك المحفوظة." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+
+<svg hidden>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+<symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="11 6 5 12 11 18"/></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 2c1.2 3.8-3.6 5-3.6 9a3.6 3.6 0 007.2 0c0-1.8-.9-2.7-.9-2.7s1.8.9 1.8 3.6a5.4 5.4 0 01-10.8 0c0-4.6 3.6-5.4 3.6-9.4.9 0 1.8-.5 2.7-.5z"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5c2-1.3 5-1.3 7 0v14c-2-1.3-5-1.3-7 0V5z"/><path d="M20 5c-2-1.3-5-1.3-7 0v14c2-1.3 5-1.3 7 0V5z"/></symbol>
+<symbol id="i-scroll" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+<symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M8.2 13.5L7 22l5-3 5 3-1.2-8.5"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.9-6.2-3.3-6.2 3.3 1.2-6.9-5-4.9 6.9-1z"/></symbol>
+</svg>
+
+<header class="site-header">
+  <div class="container header-row">
+    <a href="./index.html" class="brand"><span class="brand-mark">ث</span> ثروة</a>
+    <nav class="main-nav">
+      <a href="./index.html">الرئيسية</a>
+      <a href="./index.html#books">الكتب</a>
+      <a href="./index.html#articles">المقالات والسلاسل</a>
+      <a href="./dashboard.html" class="is-active">مساحتي</a>
+    </nav>
+    <div class="header-search"><svg class="icon"><use href="#i-search"/></svg> ابحث عن كتاب، مؤلف، أو فكرة…</div>
+    <div class="header-actions">
+      <a href="./dashboard.html" class="icon-btn" aria-label="المفضلة"><svg class="icon"><use href="#i-bookmark"/></svg></a>
+      <a href="./dashboard.html" class="avatar">س</a>
+      <button class="nav-toggle icon-btn" aria-label="القائمة"><svg class="icon"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="container dash-shell">
+  <aside class="dash-side">
+    <div class="profile-block">
+      <div class="profile-avatar">س</div>
+      <b>سارة العتيبي</b>
+      <span class="streak-chip" style="color:var(--bronze-ink);"><svg class="icon"><use href="#i-flame"/></svg> سلسلة ١٢ يوماً</span>
+    </div>
+    <nav class="dash-nav">
+      <a href="#overview" class="is-active"><svg class="icon"><use href="#i-grid"/></svg> نظرة عامة</a>
+      <a href="#reading"><svg class="icon"><use href="#i-book"/></svg> أقرأ الآن <span class="count num">٣</span></a>
+      <a href="#reading"><svg class="icon"><use href="#i-check"/></svg> اكتملت <span class="count num">١٢</span></a>
+      <a href="#reading"><svg class="icon"><use href="#i-bookmark"/></svg> أريد قراءتها <span class="count num">٧</span></a>
+      <a href="#reading"><svg class="icon"><use href="#i-scroll"/></svg> مقالات محفوظة <span class="count num">٩</span></a>
+      <a href="#achievements"><svg class="icon"><use href="#i-award"/></svg> الإنجازات</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div id="overview">
+      <div class="dash-header-row">
+        <div>
+          <h1>أهلاً بعودتك، سارة</h1>
+          <p>واصلت القراءة ١٢ يوماً على التوالي — استمري لتصلي إلى شارة الشهر الكامل.</p>
+        </div>
+        <a href="./summary.html" class="btn btn-bronze">أكملي «الأب الغني والأب الفقير» <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-top"><span>كتب مكتملة</span><svg class="icon"><use href="#i-check"/></svg></div>
+          <b class="num">١٢</b>
+          <span class="kpi-delta">+٣ هذا الشهر</span>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-top"><span>دقائق قراءة (شهرياً)</span><svg class="icon"><use href="#i-clock"/></svg></div>
+          <b class="num">٣٤٠</b>
+          <span class="kpi-delta">+١٨٪ عن الشهر الماضي</span>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-top"><span>سلسلة الأيام</span><svg class="icon"><use href="#i-flame"/></svg></div>
+          <b class="num">١٢</b>
+          <span class="kpi-delta">أطول سلسلة: ٢٤ يوماً</span>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-top"><span>مقالات محفوظة</span><svg class="icon"><use href="#i-bookmark"/></svg></div>
+          <b class="num">٩</b>
+          <span class="kpi-delta">٤ لم تُقرأ بعد</span>
+        </div>
+      </div>
+
+      <div class="goal-card">
+        <svg class="icon" style="width:30px;height:30px; color:var(--bronze-light);"><use href="#i-target"/></svg>
+        <div>
+          <h3>هدف هذا الأسبوع: أنهِ ملخصين</h3>
+          <p>أنهيتِ ملخصاً واحداً حتى الآن — ملخص ثانٍ يكفي لتحقيق الهدف قبل نهاية الأسبوع.</p>
+          <div class="goal-track"><div class="goal-fill" style="width:50%"></div></div>
+        </div>
+        <b class="num" style="font-size:1.6rem; color:var(--bronze-light);">١ / ٢</b>
+      </div>
+    </div>
+
+    <div id="reading">
+      <div class="tab-row">
+        <button class="tab-btn is-active" data-tab="now">أقرأ الآن <span class="count">٣</span></button>
+        <button class="tab-btn" data-tab="done">اكتملت <span class="count">١٢</span></button>
+        <button class="tab-btn" data-tab="later">أريد قراءتها <span class="count">٧</span></button>
+        <button class="tab-btn" data-tab="articles">مقالات محفوظة <span class="count">٩</span></button>
+      </div>
+
+      <div class="tab-panel is-active" data-panel="now">
+        <div class="track-list">
+          <div class="track-row">
+            <div class="track-swatch" style="background:linear-gradient(155deg,#C98B3E,#7A4E1C)"></div>
+            <div class="track-body"><b>الأب الغني والأب الفقير</b><span>روبرت كيوساكي · بناء الثروة</span></div>
+            <div class="track-progress"><div class="progress-label"><span>٦٤٪</span><span>٩/١٤ د</span></div><div class="progress-track"><div class="progress-fill is-bronze" style="width:64%"></div></div></div>
+            <a href="./summary.html" class="btn btn-bronze btn-sm track-cta">أكمل</a>
+          </div>
+          <div class="track-row">
+            <div class="track-swatch" style="background:linear-gradient(155deg,#7C9169,#3D4B36)"></div>
+            <div class="track-body"><b>سيكولوجية المال</b><span>مورجان هاوسل · العقلية المالية</span></div>
+            <div class="track-progress"><div class="progress-label"><span>٣١٪</span><span>٥/١٦ د</span></div><div class="progress-track"><div class="progress-fill" style="width:31%"></div></div></div>
+            <a href="./summary.html" class="btn btn-outline btn-sm track-cta">أكمل</a>
+          </div>
+          <div class="track-row">
+            <div class="track-swatch" style="background:linear-gradient(155deg,#3B4A6B,#1B2233)"></div>
+            <div class="track-body"><b>سلسلة: أساسيات الاستثمار للمبتدئين</b><span>الحلقة ٥ من ٦</span></div>
+            <div class="track-progress"><div class="progress-label"><span>٨٣٪</span><span>حلقة ٥/٦</span></div><div class="progress-track"><div class="progress-fill is-bronze" style="width:83%"></div></div></div>
+            <a href="./summary.html" class="btn btn-outline btn-sm track-cta">أكمل</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="done">
+        <div class="track-list">
+          <div class="track-row">
+            <div class="track-swatch" style="background:linear-gradient(155deg,#9B5349,#5A2521)"></div>
+            <div class="track-body"><b>أغنى رجل في بابل</b><span>جورج كلاسون · الادخار</span></div>
+            <div class="check-badge"><svg class="icon"><use href="#i-check"/></svg> اكتمل قبل ٣ أيام</div>
+            <a href="./summary.html" class="btn btn-ghost btn-sm track-cta">أعد القراءة</a>
+          </div>
+          <div class="track-row">
+            <div class="track-swatch" style="background:linear-gradient(155deg,#C98B3E,#7A4E1C)"></div>
+            <div class="track-body"><b>فكّر تصبح غنياً</b><span>نابليون هيل · العقلية المالية</span></div>
+            <div class="check-badge"><svg class="icon"><use href="#i-check"/></svg> اكتمل قبل أسبوع</div>
+            <a href="./summary.html" class="btn btn-ghost btn-sm track-cta">أعد القراءة</a>
+          </div>
+          <div class="track-row">
+            <div class="track-swatch" style="background:linear-gradient(155deg,#7C9169,#3D4B36)"></div>
+            <div class="track-body"><b>الطريق البسيط إلى الثروة</b><span>جي إل كولينز · الاستثمار</span></div>
+            <div class="check-badge"><svg class="icon"><use href="#i-check"/></svg> اكتمل قبل أسبوعين</div>
+            <a href="./summary.html" class="btn btn-ghost btn-sm track-cta">أعد القراءة</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="later">
+        <div class="track-list">
+          <div class="track-row">
+            <div class="track-swatch" style="background:linear-gradient(155deg,#3B4A6B,#1B2233)"></div>
+            <div class="track-body"><b>المستثمر الذكي</b><span>بنجامين جراهام · سوق الأسهم</span></div>
+            <div class="track-body" style="text-align:center;"><span class="num">١٨ دقيقة</span></div>
+            <a href="./summary.html" class="btn btn-bronze btn-sm track-cta">ابدأ القراءة</a>
+          </div>
+          <div class="track-row">
+            <div class="track-swatch" style="background:linear-gradient(155deg,#9B5349,#5A2521)"></div>
+            <div class="track-body"><b>من الصفر إلى مليون</b><span>إم جيه ديمارکو · ريادة الأعمال</span></div>
+            <div class="track-body" style="text-align:center;"><span class="num">١٩ دقيقة</span></div>
+            <a href="./summary.html" class="btn btn-bronze btn-sm track-cta">ابدأ القراءة</a>
+          </div>
+          <div class="track-row">
+            <div class="track-swatch" style="background:linear-gradient(155deg,#C98B3E,#7A4E1C)"></div>
+            <div class="track-body"><b>المال: قواعد اللعبة</b><span>توني روبنز · الاستثمار</span></div>
+            <div class="track-body" style="text-align:center;"><span class="num">٢٢ دقيقة</span></div>
+            <a href="./summary.html" class="btn btn-bronze btn-sm track-cta">ابدأ القراءة</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="articles">
+        <div class="track-list">
+          <div class="track-row" style="grid-template-columns:54px 1fr auto;">
+            <div class="track-swatch" style="background:var(--ink); display:flex; align-items:center; justify-content:center; color:var(--bronze-light);"><svg class="icon"><use href="#i-scroll"/></svg></div>
+            <div class="track-body"><b>٧ عادات مالية يمارسها أصحاب الثروات يومياً</b><span>مقال · ٦ دقائق</span></div>
+            <a href="./summary.html" class="btn btn-outline btn-sm track-cta">اقرأ</a>
+          </div>
+          <div class="track-row" style="grid-template-columns:54px 1fr auto;">
+            <div class="track-swatch" style="background:var(--ink); display:flex; align-items:center; justify-content:center; color:var(--bronze-light);"><svg class="icon"><use href="#i-scroll"/></svg></div>
+            <div class="track-body"><b>الدخل النشط مقابل الدخل السلبي: دليل مبسّط</b><span>مقال · ٧ دقائق</span></div>
+            <a href="./summary.html" class="btn btn-outline btn-sm track-cta">اقرأ</a>
+          </div>
+          <div class="track-row" style="grid-template-columns:54px 1fr auto;">
+            <div class="track-swatch" style="background:var(--ink); display:flex; align-items:center; justify-content:center; color:var(--bronze-light);"><svg class="icon"><use href="#i-scroll"/></svg></div>
+            <div class="track-body"><b>لماذا يفلس بعض أصحاب الرواتب المرتفعة؟</b><span>مقال · ٨ دقائق</span></div>
+            <a href="./summary.html" class="btn btn-outline btn-sm track-cta">اقرأ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="achievements">
+      <div class="section-head" style="margin-top:52px; margin-bottom:24px;">
+        <div><div class="eyebrow">الإنجازات</div><h2 style="font-size:1.3rem;">شارات القراءة</h2></div>
+      </div>
+      <div class="badge-grid">
+        <div class="badge-stamp is-earned"><svg class="icon"><use href="#i-book"/></svg><span>أول ملخص</span></div>
+        <div class="badge-stamp is-earned"><svg class="icon"><use href="#i-flame"/></svg><span>سلسلة ٧ أيام</span></div>
+        <div class="badge-stamp is-earned"><svg class="icon"><use href="#i-check"/></svg><span>١٠ كتب مكتملة</span></div>
+        <div class="badge-stamp is-earned"><svg class="icon"><use href="#i-star"/></svg><span>مستكشف التصنيفات</span></div>
+        <div class="badge-stamp"><svg class="icon"><use href="#i-flame"/></svg><span>سلسلة ٣٠ يوماً</span></div>
+        <div class="badge-stamp"><svg class="icon"><use href="#i-award"/></svg><span>٥٠ كتاباً مكتملاً</span></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container footer-bottom" style="border-top:none; margin-top:0;">
+    <span>© ٢٠٢٦ ثروة — مكتبة ملخصات المال والثروة</span>
+    <span>نموذج تصميم (Mockup) لأغراض العرض</span>
+  </div>
+</footer>
+
+<script src="./js/main.js"></script>
+</body>
+</html>
