@@ -167,10 +167,11 @@ fun AddTransactionScreen(
         Text(stringResource(R.string.add_transaction_category), style = MaterialTheme.typography.titleMedium)
         Spacer(modifier = Modifier.height(8.dp))
 
-        val availableCategories = viewModel.categoriesFor(state.type)
+        val categoryList by viewModel.categories.collectAsState()
+        val availableCategories = remember(categoryList, state.type) { viewModel.categoriesFor(state.type) }
         LazyVerticalGrid(
             columns = GridCells.Fixed(4),
-            modifier = Modifier.fillMaxWidth().height(180.dp),
+            modifier = Modifier.fillMaxWidth().height(230.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
