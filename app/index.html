@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Aridal Lab — Parlez français avec aisance</title>
+<meta name="description" content="Aridal Lab : application immersive pour parler français avec fluidité : expressions de communication avancées, grammaire, conversations simulées et entraînement à la prononciation avec reconnaissance vocale." />
+<meta name="theme-color" content="#6C5CE7" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="icon" href="./assets/icon-192.png" />
+<link rel="apple-touch-icon" href="./assets/icon-192.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+<div id="confetti-layer" class="confetti-layer" aria-hidden="true"></div>
+<div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+<div class="app-shell">
+  <header class="topbar">
+    <a href="#/home" class="brand">
+      <span class="brand__flag">🇫🇷</span>
+      <span class="brand__text">Aridal<span class="brand__accent"> Lab</span></span>
+    </a>
+    <div class="topbar__stats" id="topbar-stats"></div>
+  </header>
+
+  <div id="update-banner" class="update-banner" hidden>
+    <span>🚀 Une nouvelle version d'Aridal Lab est prête.</span>
+    <button id="update-banner-btn">Mettre à jour</button>
+  </div>
+
+  <main id="app" class="app-main" role="main"></main>
+
+  <nav class="bottom-nav" id="bottom-nav">
+    <a href="#/home" class="nav-item" data-route="home">
+      <span class="nav-item__icon">🏠</span><span class="nav-item__label">Accueil</span>
+    </a>
+    <a href="#/lessons" class="nav-item" data-route="lessons">
+      <span class="nav-item__icon">🗂️</span><span class="nav-item__label">Expressions</span>
+    </a>
+    <a href="#/grammar" class="nav-item" data-route="grammar">
+      <span class="nav-item__icon">📖</span><span class="nav-item__label">Grammaire</span>
+    </a>
+    <a href="#/conversations" class="nav-item" data-route="conversations">
+      <span class="nav-item__icon">💬</span><span class="nav-item__label">Dialogue</span>
+    </a>
+    <a href="#/profile" class="nav-item" data-route="profile">
+      <span class="nav-item__icon">👤</span><span class="nav-item__label">Profil</span>
+    </a>
+  </nav>
+</div>
+
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>
