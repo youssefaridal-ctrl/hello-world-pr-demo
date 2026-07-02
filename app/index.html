@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Bonjour! تعلّم الفرنسية بالمحادثة</title>
+<meta name="description" content="تطبيق تفاعلي لتعلم اللغة الفرنسية بالتواصل: مفردات، قواعد، محادثات، ونطق بالصوت مع تصحيح فوري." />
+<meta name="theme-color" content="#6C5CE7" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇫🇷</text></svg>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+<div id="confetti-layer" class="confetti-layer" aria-hidden="true"></div>
+<div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+<div class="app-shell">
+  <header class="topbar">
+    <a href="#/home" class="brand">
+      <span class="brand__flag">🇫🇷</span>
+      <span class="brand__text">Bonjour<span class="brand__accent">.dz</span></span>
+    </a>
+    <div class="topbar__stats" id="topbar-stats"></div>
+  </header>
+
+  <main id="app" class="app-main" role="main"></main>
+
+  <nav class="bottom-nav" id="bottom-nav">
+    <a href="#/home" class="nav-item" data-route="home">
+      <span class="nav-item__icon">🏠</span><span class="nav-item__label">الرئيسية</span>
+    </a>
+    <a href="#/lessons" class="nav-item" data-route="lessons">
+      <span class="nav-item__icon">🗂️</span><span class="nav-item__label">المفردات</span>
+    </a>
+    <a href="#/grammar" class="nav-item" data-route="grammar">
+      <span class="nav-item__icon">📖</span><span class="nav-item__label">القواعد</span>
+    </a>
+    <a href="#/conversations" class="nav-item" data-route="conversations">
+      <span class="nav-item__icon">💬</span><span class="nav-item__label">محادثة</span>
+    </a>
+    <a href="#/profile" class="nav-item" data-route="profile">
+      <span class="nav-item__icon">👤</span><span class="nav-item__label">حسابي</span>
+    </a>
+  </nav>
+</div>
+
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>
